@@ -5,14 +5,11 @@ import {Component, Input, OnInit} from '@angular/core';
   templateUrl: './like-button.component.html',
   styleUrls: ['./like-button.component.scss']
 })
-export class LikeButtonComponent implements OnInit {
+export class LikeButtonComponent {
 
   @Input() nbLikes: number = 0;
 
   constructor() {
-  }
-
-  ngOnInit(): void {
   }
 
   incLikes(): void {
