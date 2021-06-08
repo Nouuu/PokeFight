@@ -32,13 +32,4 @@ export class Pokemon implements PokemonProps {
     }
     return 0;
   }
-
-  getProps(): PokemonProps {
-    return {
-      name: this.name,
-      attack: this.attack,
-      life: this.life,
-      speed: this.speed
-    };
-  }
 }

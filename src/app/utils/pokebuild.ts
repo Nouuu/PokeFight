@@ -26,11 +26,11 @@ export class Pokebuild {
       return element.stat.name === 'attack';
     }).base_stat;
 
-    const life: number = pokemonFromApi.stats.find((element: any) => {
+    const maxLife: number = pokemonFromApi.stats.find((element: any) => {
       return element.stat.name === 'hp';
     }).base_stat;
 
-    return new Pokemon({name, speed, attack, life});
+    return new Pokemon({name, speed, attack, maxLife});
   }
 
 }

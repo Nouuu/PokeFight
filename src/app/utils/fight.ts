@@ -17,7 +17,7 @@ async function determineAttacker(pok1: Pokemon, pok2: Pokemon): Promise<Pokemon>
 }
 
 export function isAnyPokemonDead(pok1: Pokemon, pok2: Pokemon): boolean {
-  return pok1.life === 0 || pok2.life === 0;
+  return pok1.currentLife === 0 || pok2.currentLife === 0;
 }
 
 export async function startAttackInterval(attacker: Pokemon, pok1: Pokemon, pok2: Pokemon,
@@ -44,7 +44,7 @@ export async function fightArena(pok1: Pokemon, pok2: Pokemon, intervalMS = 1000
   const attacker = await determineAttacker(pok1, pok2);
 
   await startAttackInterval(attacker, pok1, pok2, intervalMS, logs, enableLog);
-  const winner: Pokemon = pok1.life > 0 ? pok1 : pok2;
+  const winner: Pokemon = pok1.currentLife > 0 ? pok1 : pok2;
   if (enableLog) {
     logs.setWinner(winner);
   }
