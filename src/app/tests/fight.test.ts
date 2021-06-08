@@ -1,24 +1,29 @@
 import {Pokemon} from '../models/Pokemon';
-import {determinefirstAttacker, fightArena, isAnyPokemonDead, startAttackInterval} from '../utils/fight';
+import {Arena} from '../utils/fight';
+import {Logs} from '../models/BattleLog';
 
 
-const carapuce: Pokemon = new Pokemon({name: 'squirtle', speed: 43, attack: 48, life: 44});
+const carapuce: Pokemon = new Pokemon({name: 'squirtle', speed: 43, attack: 48, maxLife: 44, imgUrl: ''});
 // Pokemon { name: 'squirtle', speed: 43, attack: 48, life: 44 }
-const pikachu: Pokemon = new Pokemon({name: 'pikachu', speed: 90, attack: 55, life: 35});
+const pikachu: Pokemon = new Pokemon({name: 'pikachu', speed: 90, attack: 55, maxLife: 35, imgUrl: ''});
 // Pokemon { name: 'pikachu', speed: 90, attack: 55, life: 35 }
 
-describe('Test determine pokemon first attacker function', function() {
+const arena: Arena = new Arena();
+arena.setPaused(false);
+const logs: Logs = new Logs();
 
-  describe('When pokemon don\'t have same speed', function() {
+describe('Test determine pokemon first attacker function', () => {
+
+  describe('When pokemon don\'t have same speed', () => {
     it('should return Pikachu when Pikachu 90 speed attack Carapuce 43 speed', () => {
-      expect(determinefirstAttacker(pikachu, carapuce)).toBe(pikachu);
+      expect(arena.determinefirstAttacker(pikachu, carapuce)).toBe(pikachu);
     });
     it('should return Carapuce when Pikachu 90 speed attack Carapuce 100 speed', () => {
       carapuce.speed = 100;
-      expect(determinefirstAttacker(pikachu, carapuce)).toBe(carapuce);
+      expect(arena.determinefirstAttacker(pikachu, carapuce)).toBe(carapuce);
     });
   });
-  describe('When pokemon have same speed', function() {
+  describe('When pokemon have same speed', () => {
     let randomMock: (() => number);
     beforeEach(() => {
       randomMock = () => 0.89;
@@ -29,93 +34,93 @@ describe('Test determine pokemon first attacker function', function() {
       carapuce.speed = 43;
       pikachu.speed = 90;
     });
-    it('Should return pikachu (1st pokemon) when rand > 0.5', function() {
-      expect(determinefirstAttacker(pikachu, carapuce, randomMock)).toBe(pikachu);
+    it('Should return pikachu (1st pokemon) when rand > 0.5', () => {
+      expect(arena.determinefirstAttacker(pikachu, carapuce, randomMock)).toBe(pikachu);
     });
-    it('Should return carapuce (2nd pokemon) when rand <= 0.5', function() {
+    it('Should return carapuce (2nd pokemon) when rand <= 0.5', () => {
       randomMock = () => 0.5;
-      expect(determinefirstAttacker(pikachu, carapuce, randomMock)).toBe(carapuce);
+      expect(arena.determinefirstAttacker(pikachu, carapuce, randomMock)).toBe(carapuce);
     });
   });
 });
 
-describe('Test pokemon fight Arena function', function() {
+describe('Test pokemon fight Arena function', () => {
   const mockIntervalMS = 10;
 
   afterEach(() => {
     // Initial state
     carapuce.speed = 43;
-    carapuce.life = 44;
+    carapuce.currentLife = 44;
     pikachu.speed = 90;
-    pikachu.life = 35;
+    pikachu.currentLife = 35;
   });
 
-  it('Should return as winner pikachu when carapuce has no chance', async function() {
-    carapuce.life = 1;
-    expect(await fightArena(pikachu, carapuce, mockIntervalMS)).toBe(pikachu);
+  it('Should return as winner pikachu when carapuce has no chance', async () => {
+    carapuce.currentLife = 1;
+    expect(await arena.fightArena(pikachu, carapuce, logs, mockIntervalMS)).toBe(pikachu);
   });
 
-  it('Should return as winner carapuce when pikachu has no chance on long fight', async function() {
-    carapuce.life = 1000;
-    expect(await fightArena(pikachu, carapuce, mockIntervalMS, false)).toBe(carapuce);
+  it('Should return as winner carapuce when pikachu has no chance on long fight', async () => {
+    carapuce.currentLife = 1000;
+    expect(await arena.fightArena(pikachu, carapuce, logs, mockIntervalMS, false)).toBe(carapuce);
   });
 
-  it('Should throw error if one of pokemon is dead', async function() {
-    carapuce.life = 0;
+  it('Should throw error if one of pokemon is dead', async () => {
+    carapuce.currentLife = 0;
     await expect(async () => {
-      await fightArena(pikachu, carapuce);
+      await arena.fightArena(pikachu, carapuce, logs);
     }).rejects.toThrow('One or both pokemon is / are dead so can\'t fight');
   });
 
 });
 
-describe('Test is any pokemon dead function', function() {
+describe('Test is any pokemon dead function', () => {
   afterEach(() => {
     // Initial state
     carapuce.speed = 43;
-    carapuce.life = 44;
+    carapuce.currentLife = 44;
     pikachu.speed = 90;
-    pikachu.life = 35;
+    pikachu.currentLife = 35;
   });
 
-  it('should return true if pikachu dead', function() {
-    pikachu.life = 0;
-    expect(isAnyPokemonDead(pikachu, carapuce)).toBeTruthy();
+  it('should return true if pikachu dead', () => {
+    pikachu.currentLife = 0;
+    expect(arena.isAnyPokemonDead(pikachu, carapuce)).toBeTruthy();
   });
 
-  it('should return true if squirtle dead', function() {
-    carapuce.life = 0;
-    expect(isAnyPokemonDead(pikachu, carapuce)).toBeTruthy();
+  it('should return true if squirtle dead', () => {
+    carapuce.currentLife = 0;
+    expect(arena.isAnyPokemonDead(pikachu, carapuce)).toBeTruthy();
   });
 
-  it('should return true if both are dead', function() {
-    pikachu.life = 0;
-    carapuce.life = 0;
-    expect(isAnyPokemonDead(pikachu, carapuce)).toBeTruthy();
+  it('should return true if both are dead', () => {
+    pikachu.currentLife = 0;
+    carapuce.currentLife = 0;
+    expect(arena.isAnyPokemonDead(pikachu, carapuce)).toBeTruthy();
   });
-  it('should return false if both are alive', function() {
-    expect(isAnyPokemonDead(pikachu, carapuce)).toBeFalsy();
+  it('should return false if both are alive', () => {
+    expect(arena.isAnyPokemonDead(pikachu, carapuce)).toBeFalsy();
   });
 });
 
-describe('Test attack interval function', function() {
+describe('Test attack interval function', () => {
   afterEach(() => {
     // Initial state
     carapuce.speed = 43;
-    carapuce.life = 44;
+    carapuce.currentLife = 44;
     pikachu.speed = 90;
-    pikachu.life = 35;
+    pikachu.currentLife = 35;
   });
 
   it('should take squirtle to 0 hp when pikachu attack first', async () => {
-    carapuce.life = 10;
-    await startAttackInterval(pikachu, pikachu, carapuce, 10, false);
-    expect(carapuce.life).toBe(0);
+    carapuce.currentLife = 10;
+    await arena.startAttackInterval(pikachu, pikachu, carapuce, 10, logs, false);
+    expect(carapuce.currentLife).toBe(0);
   });
 
   it('should take pikachu to 0 hp when squirtle has to many life attack first', async () => {
-    carapuce.life = 3000;
-    await startAttackInterval(pikachu, pikachu, carapuce, 10, false);
-    expect(pikachu.life).toBe(0);
+    carapuce.currentLife = 3000;
+    await arena.startAttackInterval(pikachu, pikachu, carapuce, 10, logs, false);
+    expect(pikachu.currentLife).toBe(0);
   });
 });
