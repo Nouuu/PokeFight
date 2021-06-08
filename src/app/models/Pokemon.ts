@@ -24,13 +24,13 @@ export class Pokemon implements PokemonProps {
   }
 
   attackPokemon(other: Pokemon, random = Math.random): number {
-    if (this.maxLife > 0) {
+    if (this.currentLife > 0) {
       let multiplier = 1;
       if (random() > 0.9) {
         multiplier = 2;
       }
-      const damage = (this.attack / 2) * multiplier;
-      other.maxLife = Math.max(0, other.maxLife - damage);
+      const damage = (this.attack / 10) * multiplier;
+      other.currentLife = Math.max(0, other.currentLife - damage);
       return damage;
     }
     return 0;

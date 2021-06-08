@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Pokemon} from './models/Pokemon';
 import {Logs} from './models/BattleLog';
 import {Pokebuild} from './utils/pokebuild';
+import {Arena} from './utils/fight';
+
 
 @Component({
   selector: 'app-root',
@@ -10,24 +12,31 @@ import {Pokebuild} from './utils/pokebuild';
 })
 export class AppComponent implements OnInit {
   title = 'PokeFight';
-  poke1 = new Pokemon({attack: 20, maxLife: 100, name: 'evolie', speed: 30, imgUrl: ''});
-  poke2 = new Pokemon({attack: 25, maxLife: 120, name: 'galopa', speed: 34, imgUrl: ''});
   pokemon1: Pokemon | undefined;
   pokemon2: Pokemon | undefined;
   logs: Logs | undefined;
+  arena: Arena | undefined;
 
 
   constructor(private pokebuild: Pokebuild) {
   }
 
   async getPokemon(): Promise<void> {
-    console.log(await this.pokebuild.getPokemonFromPokedex('pikachu'));
+    this.pokemon1 = await this.pokebuild.getPokemonFromPokedex('pikachu');
+    this.pokemon2 = await this.pokebuild.getPokemonFromPokedex('eevee');
   }
 
-  ngOnInit(): void {
-    this.getPokemon();
-    this.pokemon1 = new Pokemon({name: 'Pikachu', speed: 40, maxLife: 60, attack: 12, imgUrl: ''});
-    this.pokemon2 = new Pokemon({name: 'Bulbizarre', speed: 30, maxLife: 100, attack: 10, imgUrl: ''});
+  async ngOnInit(): Promise<void> {
+    await this.getPokemon();
     this.logs = new Logs();
+    this.arena = new Arena();
+  }
+
+  onStartFight(): void {
+    if (this.pokemon1 && this.pokemon2 && this.logs && this.arena) {
+      this.arena.fightArena(this.pokemon1, this.pokemon2, this.logs);
+    } else {
+      console.error('Can\'t start fight !');
+    }
   }
 }

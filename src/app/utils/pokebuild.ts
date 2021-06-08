@@ -10,12 +10,12 @@ export class Pokebuild {
   constructor(private httpClient: HttpClient) {
   }
 
-  async getPokemonFromPokedex(name: string): Promise<Pokemon | null> {
+  async getPokemonFromPokedex(name: string): Promise<Pokemon | undefined> {
     const pokemonFromApi: any = await this.httpClient.get('https://pokeapi.co/api/v2/pokemon/' + name).toPromise().catch(() => {
       return null;
     });
     if (!pokemonFromApi) {
-      return null;
+      return undefined;
     }
 
     const speed: number = pokemonFromApi.stats.find((element: any) => {

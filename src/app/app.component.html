@@ -2,15 +2,20 @@
   <header class="mb-4"></header>
   <div class="row">
     <div class="col">
-      <app-pokemon [pokemon]="poke1"></app-pokemon>
+      <app-pokemon [pokemon]="pokemon1"></app-pokemon>
     </div>
     <div class="col">
-      <app-pokemon [pokemon]="poke2"></app-pokemon>
+      <app-pokemon [pokemon]="pokemon2"></app-pokemon>
+    </div>
+  </div>
+  <div class="row my-2">
+    <div class="col-4 offset-4 d-flex justify-content-center">
+      <button class="btn btn-primary w-100" (click)="onStartFight()">Start fight</button>
     </div>
   </div>
   <div class="row">
     <div class="col-12">
-      <app-log></app-log>
+      <app-log [logs]="logs"></app-log>
     </div>
   </div>
 </div>
