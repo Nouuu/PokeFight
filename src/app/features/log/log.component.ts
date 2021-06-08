@@ -8,11 +8,7 @@ import { BattleLog } from 'src/app/models/BattleLog';
 })
 export class LogComponent implements OnInit {
   @Input()
-  battleLogs: BattleLog[]= [{
-    attackerName:"Ivysaur",
-    attackName: "poison-powder",
-    dealtDamage:12
-  }];
+  battleLogs: BattleLog[]= [];
   constructor() { }
 
   ngOnInit(): void {
