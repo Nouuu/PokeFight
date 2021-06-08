@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {BattleLog} from 'src/app/models/BattleLog';
+import { Component, Input, OnInit } from '@angular/core';
+import { BattleLog, Logs } from 'src/app/models/BattleLog';
 
 @Component({
   selector: 'app-log',
@@ -8,7 +8,8 @@ import {BattleLog} from 'src/app/models/BattleLog';
 })
 export class LogComponent implements OnInit {
   @Input()
-  battleLogs: BattleLog[] = [];
+  logs: Logs | undefined;
+  constructor() { }
 
   constructor() {
   }
