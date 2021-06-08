@@ -32,7 +32,7 @@ export class Pokebuild {
 
     const imgUrl = `https://img.pokemondb.net/sprites/home/normal/${name.toLowerCase()}.png`;
 
-    return new Pokemon({name, speed, attack, maxLife, imgUrl});
+    return new Pokemon({name, speed, attack, maxLife, imgUrl, moves:[]});
   }
 
 }
