@@ -3,6 +3,7 @@ export type PokemonProps = {
   speed: number;
   maxLife: number;
   attack: number;
+  imgUrl: string;
 };
 
 export class Pokemon implements PokemonProps {
@@ -11,6 +12,7 @@ export class Pokemon implements PokemonProps {
   attack: number;
   maxLife: number;
   currentLife: number;
+  imgUrl: string;
 
   constructor(props: PokemonProps) {
     this.name = props.name;
@@ -18,6 +20,7 @@ export class Pokemon implements PokemonProps {
     this.attack = props.attack;
     this.maxLife = props.maxLife;
     this.currentLife = props.maxLife;
+    this.imgUrl = props.imgUrl;
   }
 
   attackPokemon(other: Pokemon, random = Math.random): number {

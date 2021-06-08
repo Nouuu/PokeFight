@@ -30,7 +30,9 @@ export class Pokebuild {
       return element.stat.name === 'hp';
     }).base_stat;
 
-    return new Pokemon({name, speed, attack, maxLife});
+    const imgUrl = `https://img.pokemondb.net/sprites/home/normal/${name.toLowerCase()}.png`;
+
+    return new Pokemon({name, speed, attack, maxLife, imgUrl});
   }
 
 }
