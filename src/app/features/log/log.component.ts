@@ -1,10 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-
-export type BattleLog{
-  attackerName: string;
-  attackName: string;
-  dealtDamage: number;
-}
+import { BattleLog } from 'src/app/models/BattleLog';
 
 @Component({
   selector: 'app-log',
