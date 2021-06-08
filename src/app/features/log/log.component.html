@@ -1,6 +1,5 @@
 <div class="container border border-dark w-50 bg-info" style="height:50vh">
-    <span class="display-4">{{logs.winner.name}} won the battle !</span>
-    <div class="my-2" *ngFor="let battleLog of logs.getLogs()">
+    <div class="my-2" *ngFor="let battleLog of logs?.getLogs()">
         <span class="text-primary">{{battleLog.attackerName}}</span>
         <span> attack with </span>
         <span class="text-primary">{{battleLog.attackName}}</span>
