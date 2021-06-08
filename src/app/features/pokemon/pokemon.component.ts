@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Pokemon} from 'src/app/models/Pokemon';
 
 @Component({
   selector: 'app-pokemon',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PokemonComponent implements OnInit {
 
-  constructor() { }
+  @Input()
+  pokemon: Pokemon | undefined;
+
+  constructor() {
+  }
 
   ngOnInit(): void {
+  }
+
+  getCurrentHpPercents(): number {
+    if (typeof this.pokemon === 'undefined') {
+      return 0;
+    }
+    return this.pokemon.currentLife / this.pokemon.maxLife * 100;
   }
 
 }

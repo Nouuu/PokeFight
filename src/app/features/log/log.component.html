@@ -1,1 +1,11 @@
-<p>log works!</p>
+<div class="container border border-dark w-75 bg-info overflow-auto" style="height:50vh">
+    <span *ngIf="logs?.getWinner()" class="display-4">{{logs?.getWinner()?.name}} won the battle !</span>
+    <div class="my-2" *ngFor="let battleLog of logs?.getLogs()">
+        <span class="text-primary">{{battleLog.attackerName}}</span>
+        <span> attack with </span>
+        <span class="text-primary">{{battleLog.attackName}}</span>
+        <span> and does </span>
+        <span class="text-primary">{{battleLog.dealtDamage}}</span>
+        <span> damage.</span>
+    </div>
+</div>

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Logs} from 'src/app/models/BattleLog';
 
 @Component({
   selector: 'app-log',
@@ -6,8 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./log.component.scss']
 })
 export class LogComponent implements OnInit {
+  @Input()
+  logs: Logs | undefined;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

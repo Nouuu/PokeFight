@@ -1,6 +1,8 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {AppComponent} from './app.component';
 import {LikeButtonComponent} from './features/like-button/like-button.component';
+import {LogComponent} from './features/log/log.component';
+import {PokemonComponent} from './features/pokemon/pokemon.component';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -10,7 +12,7 @@ describe('AppComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AppComponent, LikeButtonComponent],
+      declarations: [AppComponent, LikeButtonComponent, LogComponent, PokemonComponent],
     }).compileComponents();
   });
 
@@ -28,10 +30,8 @@ describe('AppComponent', () => {
   });
 
   it(`should have as title 'PokeFight'`, () => {
-    /*
-        const fixture = TestBed.createComponent(AppComponent);
-        const app = fixture.componentInstance;
-    */
-    expect(component.title).toEqual('PokeFight');
+    fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    expect(app.title).toEqual('PokeFight');
   });
 });
