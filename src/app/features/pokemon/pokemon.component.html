@@ -1,1 +1,14 @@
-<p>pokemon works!</p>
+<div>{{ hp }} / {{ maxHp }}</div>
+<div class="progress">
+  <div
+  class="progress-bar progress-bar-striped"
+  [class.bg-danger]="hpPercents < 20"
+  [class.bg-warning]="hpPercents < 50"
+  [class.bg-success]="hpPercents >= 50"
+  role="progressbar"
+  aria-valuenow="100"
+  aria-valuemin="0"
+  aria-valuemax="100"
+  [style.width]="hpPercents + '%'"
+  ></div>
+</div>
