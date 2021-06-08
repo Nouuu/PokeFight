@@ -1,1 +1,10 @@
-<p>log works!</p>
+<div class="container border">
+    <div *ngFor="let battleLog of battleLogs">
+        <p class="text-primary">{{battleLog.attackerName}}</p>
+        <p> attack with </p>
+        <p class="text-primary">{{battleLog.attackName}}</p>
+        <p> and does </p>
+        <p class="text-primary">{{battleLog.dealtDamage}}</p>
+        <p> damage.</p>
+    </div>
+</div>
