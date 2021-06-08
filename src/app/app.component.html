@@ -1,10 +1,11 @@
-<div class="container">
+<div class="container vh-100 d-flex flex-column">
   <header class="mb-4"></header>
-  <div class="row">
-    <div class="col">
+  <div class="row align-items-center">
+    <div class="col-sm-6 col-lg-4 col-xl-3">
       <app-pokemon [pokemon]="pokemon1"></app-pokemon>
     </div>
-    <div class="col">
+    <div class="d-none d-xl-block col-xl-6 text-center">VS</div>
+    <div class="offset-lg-4 offset-xl-0 col-sm-6 col-lg-4 col-xl-3">
       <app-pokemon [pokemon]="pokemon2"></app-pokemon>
     </div>
   </div>
@@ -16,7 +17,7 @@
       </button>
     </div>
   </div>
-  <div class="row">
+  <div class="row flex-grow-1">
     <div class="col-12">
       <app-log [logs]="logs"></app-log>
     </div>
