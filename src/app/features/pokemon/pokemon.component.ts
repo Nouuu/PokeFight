@@ -9,7 +9,7 @@ import { Pokemon } from 'src/app/models/Pokemon';
 export class PokemonComponent implements OnInit {
   
     @Input()
-    pokemon?: Pokemon;
+    pokemon: Pokemon | undefined;
 
   constructor() {
   }
