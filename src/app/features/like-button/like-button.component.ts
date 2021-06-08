@@ -7,7 +7,8 @@ import {Component, Input} from '@angular/core';
 })
 export class LikeButtonComponent {
 
-  @Input() nbLikes = 0;
+  @Input()
+  nbLikes = 0;
 
   constructor() {
   }
