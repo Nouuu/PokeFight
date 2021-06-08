@@ -1,5 +1,3 @@
-import { Injectable } from "@angular/core";
-
 export type PokemonProps = {
   name: string;
   speed: number;
