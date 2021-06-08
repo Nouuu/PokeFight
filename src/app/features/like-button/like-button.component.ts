@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-like-button',
@@ -7,7 +7,7 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class LikeButtonComponent {
 
-  @Input() nbLikes: number = 0;
+  @Input() nbLikes = 0;
 
   constructor() {
   }

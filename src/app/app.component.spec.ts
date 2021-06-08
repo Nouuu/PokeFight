@@ -1,6 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {AppComponent} from './app.component';
-import {LikeButtonComponent} from "./features/like-button/like-button.component";
+import {LikeButtonComponent} from './features/like-button/like-button.component';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -22,7 +22,7 @@ describe('AppComponent', () => {
   });
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
+    fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   });

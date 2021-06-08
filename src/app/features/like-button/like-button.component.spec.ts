@@ -7,7 +7,7 @@ describe('LikeButtonComponent', () => {
   let fixture: ComponentFixture<LikeButtonComponent>;
   let view: any;
 
-  beforeEach(async() => {
+  beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [LikeButtonComponent]
     }).compileComponents();
@@ -21,12 +21,12 @@ describe('LikeButtonComponent', () => {
   });
 
   it('should display 0 likes by default', () => {
-    expect(view.innerHTML).toContain("0 like");
+    expect(view.innerHTML).toContain('0 like');
   });
 
   it('should display 10 likes after default', () => {
     component.nbLikes = 10;
     fixture.detectChanges();
-    expect(view.innerHTML).toContain("10 likes");
+    expect(view.innerHTML).toContain('10 likes');
   });
 });
