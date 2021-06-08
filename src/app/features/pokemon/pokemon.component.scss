@@ -1,9 +1,15 @@
-.poke-card {
-  max-height: 40vh;
-}
 .card-title {
   font-weight: 600;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size: 22px;
   line-height: 25px;
+}
+
+.attacks {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  row-gap: 0.3rem;
+  column-gap: 0.3rem;
+  margin: 0.5rem;
 }
