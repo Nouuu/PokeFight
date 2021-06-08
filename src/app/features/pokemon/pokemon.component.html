@@ -1,14 +1,15 @@
-<div>{{ hp }} / {{ maxHp }}</div>
+<div>{{ pokemon!.name }}</div>
+<div>{{ pokemon!.currentLife }} / {{ pokemon!.maxLife }}</div>
 <div class="progress">
   <div
   class="progress-bar progress-bar-striped"
-  [class.bg-danger]="hpPercents < 20"
-  [class.bg-warning]="hpPercents < 50"
-  [class.bg-success]="hpPercents >= 50"
+  [class.bg-danger]="getCurrentHpPercents() < 20"
+  [class.bg-warning]="getCurrentHpPercents() < 50"
+  [class.bg-success]="getCurrentHpPercents() >= 50"
   role="progressbar"
   aria-valuenow="100"
   aria-valuemin="0"
   aria-valuemax="100"
-  [style.width]="hpPercents + '%'"
+  [style.width]="getCurrentHpPercents() + '%'"
   ></div>
 </div>
