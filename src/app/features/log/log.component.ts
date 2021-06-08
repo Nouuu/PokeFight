@@ -1,10 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-
-export type BattleLog{
-  attackerName: string;
-  attackName: string;
-  dealtDamage: number;
-}
+import { BattleLog } from 'src/app/models/BattleLog';
 
 @Component({
   selector: 'app-log',
@@ -13,11 +8,7 @@ export type BattleLog{
 })
 export class LogComponent implements OnInit {
   @Input()
-  battleLogs: BattleLog[]= [{
-    attackerName:"Ivysaur",
-    attackName: "poison-powder",
-    dealtDamage:12
-  }];
+  battleLogs: BattleLog[]= [];
   constructor() { }
 
   ngOnInit(): void {
