@@ -1,7 +1,7 @@
 import {Pokemon} from './Pokemon';
 
 export type BattleLog = {
-  attackerName: string;
+  pokemon: Pokemon;
   attackName: string;
   dealtDamage: number;
 };

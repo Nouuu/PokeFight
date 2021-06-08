@@ -4,6 +4,7 @@ export type PokemonProps = {
   maxLife: number;
   attack: number;
   imgUrl: string;
+  types: string[];
 };
 
 export class Pokemon implements PokemonProps {
@@ -13,6 +14,7 @@ export class Pokemon implements PokemonProps {
   maxLife: number;
   currentLife: number;
   imgUrl: string;
+  types: string[];
 
   constructor(props: PokemonProps) {
     this.name = props.name;
@@ -21,6 +23,7 @@ export class Pokemon implements PokemonProps {
     this.maxLife = props.maxLife;
     this.currentLife = props.maxLife;
     this.imgUrl = props.imgUrl;
+    this.types = props.types;
   }
 
   attackPokemon(other: Pokemon, random = Math.random): number {

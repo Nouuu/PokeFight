@@ -24,6 +24,8 @@ export class AppComponent implements OnInit {
   async getPokemon(): Promise<void> {
     this.pokemon1 = await this.pokebuild.getPokemonFromPokedex('pikachu');
     this.pokemon2 = await this.pokebuild.getPokemonFromPokedex('eevee');
+    console.log(this.pokemon1);
+    
   }
 
   async ngOnInit(): Promise<void> {

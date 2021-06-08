@@ -36,7 +36,7 @@ export class Arena {
         if (!this.paused) {
           const damage: number = attacker.attackPokemon(victim);
           if (enableLog) {
-            logs.appendLog({attackerName: attacker.name, attackName: 'frappe', dealtDamage: damage});
+            logs.appendLog({pokemon: attacker, attackName: 'frappe', dealtDamage: damage});
           }
         }
 
