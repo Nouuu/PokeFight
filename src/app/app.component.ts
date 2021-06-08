@@ -30,6 +30,7 @@ export class AppComponent implements OnInit {
     await this.getPokemon();
     this.logs = new Logs();
     this.arena = new Arena();
+    this.onStartFight();
   }
 
   onStartFight(): void {
