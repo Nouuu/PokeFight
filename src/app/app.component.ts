@@ -10,6 +10,8 @@ import {Pokebuild} from './utils/pokebuild';
 })
 export class AppComponent implements OnInit {
   title = 'PokeFight';
+  poke1 = new Pokemon({attack: 20, maxLife: 100, name: "evolie", speed: 30});
+  poke2 = new Pokemon({attack: 25, maxLife: 120, name: "galopa", speed: 34});
   pokemon1: Pokemon | undefined;
   pokemon2: Pokemon | undefined;
   logs: Logs | undefined;

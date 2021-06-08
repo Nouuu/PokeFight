@@ -1,7 +1,7 @@
 export type PokemonProps = {
   name: string;
   speed: number;
-  life: number;
+  maxLife: number;
   attack: number;
 };
 
@@ -9,23 +9,25 @@ export class Pokemon implements PokemonProps {
   name: string;
   speed: number;
   attack: number;
-  life: number;
+  maxLife: number;
+  currentLife: number;
 
   constructor(props: PokemonProps) {
     this.name = props.name;
     this.speed = props.speed;
     this.attack = props.attack;
-    this.life = props.life;
+    this.maxLife = props.maxLife;
+    this.currentLife = props.maxLife;
   }
 
   attackPokemon(other: Pokemon, random = Math.random): number {
-    if (this.life > 0) {
+    if (this.maxLife > 0) {
       let multiplier = 1;
       if (random() > 0.9) {
         multiplier = 2;
       }
       const damage = (this.attack / 2) * multiplier;
-      other.life = Math.max(0, other.life - damage);
+      other.maxLife = Math.max(0, other.maxLife - damage);
       return damage;
     }
     return 0;
