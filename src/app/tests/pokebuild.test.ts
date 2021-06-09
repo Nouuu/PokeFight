@@ -1,5 +1,5 @@
 import {Pokemon} from '../models/Pokemon';
-import {Pokebuild} from '../utils/pokebuild';
+import {PokebuildService} from '../utils/pokebuild.service';
 import {TestBed} from '@angular/core/testing';
 import {HttpClientModule} from '@angular/common/http';
 
@@ -29,26 +29,26 @@ describe('Test pokebuild from API', () => {
   describe('When a valid pokemon name is provided', () => {
     beforeEach(() => {
       TestBed.configureTestingModule({
-        providers: [Pokebuild],
+        providers: [PokebuildService],
         imports: [HttpClientModule]
       });
     });
     it('should return pikachu pokemon with API stats', async () => {
-      const pokeBuild: Pokebuild = TestBed.inject(Pokebuild);
+      const pokeBuild: PokebuildService = TestBed.inject(PokebuildService);
       expect(await pokeBuild.getPokemonFromPokedex('pikachu')).toEqual(pikachu);
     });
     it('should return squirtle pokemon with API stats', async () => {
-      const pokeBuild: Pokebuild = TestBed.inject(Pokebuild);
+      const pokeBuild: PokebuildService = TestBed.inject(PokebuildService);
       expect(await pokeBuild.getPokemonFromPokedex('squirtle')).toEqual(carapuce);
     });
 
     it('should return null when empty name', async () => {
-      const pokeBuild: Pokebuild = TestBed.inject(Pokebuild);
+      const pokeBuild: PokebuildService = TestBed.inject(PokebuildService);
       expect(await pokeBuild.getPokemonFromPokedex('')).toBeUndefined();
     });
 
     it('should return null when unknown name', async () => {
-      const pokeBuild: Pokebuild = TestBed.inject(Pokebuild);
+      const pokeBuild: PokebuildService = TestBed.inject(PokebuildService);
       expect(await pokeBuild.getPokemonFromPokedex('unknown')).toBeUndefined();
     });
   });

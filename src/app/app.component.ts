@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Pokemon} from './models/Pokemon';
 import {Logs} from './models/BattleLog';
-import {Pokebuild} from './utils/pokebuild';
-import {Arena} from './utils/fight';
+import {PokebuildService} from './utils/pokebuild.service';
+import {FightService} from './utils/fight.service';
 
 
 @Component({
@@ -15,10 +15,10 @@ export class AppComponent implements OnInit {
   pokemon1: Pokemon | undefined;
   pokemon2: Pokemon | undefined;
   logs: Logs | undefined;
-  arena: Arena | undefined;
+  arena: FightService | undefined;
 
 
-  constructor(private pokebuild: Pokebuild) {
+  constructor(private pokebuild: PokebuildService) {
   }
 
   async getPokemon(): Promise<void> {
@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     await this.getPokemon();
     this.logs = new Logs();
-    this.arena = new Arena();
+    this.arena = new FightService();
     this.onStartFight();
   }
 

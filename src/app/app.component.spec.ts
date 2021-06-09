@@ -3,7 +3,7 @@ import {AppComponent} from './app.component';
 import {LikeButtonComponent} from './features/like-button/like-button.component';
 import {LogComponent} from './features/log/log.component';
 import {PokemonComponent} from './features/pokemon/pokemon.component';
-import {Pokebuild} from './utils/pokebuild';
+import {PokebuildService} from './utils/pokebuild.service';
 import {HttpClientModule} from '@angular/common/http';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 
@@ -17,7 +17,7 @@ describe('AppComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [AppComponent, LikeButtonComponent, LogComponent, PokemonComponent],
       imports: [HttpClientTestingModule],
-      providers: [Pokebuild]
+      providers: [PokebuildService]
     });
   });
 

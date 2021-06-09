@@ -5,7 +5,7 @@ import {MoveProps} from '../models/Move';
 
 
 @Injectable()
-export class Pokebuild {
+export class PokebuildService {
 
 
   constructor(private httpClient: HttpClient) {

@@ -1,8 +1,10 @@
 import {Pokemon} from '../models/Pokemon';
 import {Logs} from '../models/BattleLog';
 import {MoveProps} from '../models/Move';
+import {Injectable} from '@angular/core';
 
-export class Arena {
+@Injectable()
+export class FightService {
   paused: boolean;
 
 
