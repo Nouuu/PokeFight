@@ -8,6 +8,7 @@ import {PokemonComponent} from './features/pokemon/pokemon.component';
 import {LogComponent} from './features/log/log.component';
 import {Pokebuild} from './utils/pokebuild';
 import {HttpClientModule} from '@angular/common/http';
+import { LogDirective } from './features/log/log.directive';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import {HttpClientModule} from '@angular/common/http';
     LikeButtonComponent,
     PokemonComponent,
     LogComponent,
+    LogDirective
   ],
   imports: [
     HttpClientModule,

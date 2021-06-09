@@ -46,11 +46,15 @@ export class Pokebuild {
 
   async getMovesFromPokedex(pokemonMoves: any[]): Promise<MoveProps[]> {
     const moves: MoveProps[] = [];
+    const getRandomMove  = (pokeMoves: any[]) => {
+      const index = Math.floor(Math.random() * pokemonMoves.length);
+      
+      return pokeMoves[index].move;
+    }
     while (moves.length < 4 && pokemonMoves.length > 0) {
-      const move: any =
-        await this.httpClient.get(pokemonMoves[Math.floor(Math.random() * pokemonMoves.length)].move.url).toPromise().catch(() => {
-          return null;
-        });
+      const move: any = await this.httpClient.get(getRandomMove(pokemonMoves).url).toPromise().catch(() => {
+        return null;
+      });
       if (move.power) {
         moves.push({name: move.name, accuracy: move.accuracy, power: move.power, type: move.type});
       }

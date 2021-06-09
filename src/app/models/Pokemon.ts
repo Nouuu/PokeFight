@@ -6,8 +6,8 @@ export type PokemonProps = {
   maxLife: number;
   attack: number;
   imgUrl: string;
-  moves: MoveProps[];
   types: string[];
+  moves: MoveProps[];
 };
 
 export class Pokemon implements PokemonProps {
@@ -27,8 +27,8 @@ export class Pokemon implements PokemonProps {
     this.maxLife = props.maxLife;
     this.currentLife = props.maxLife;
     this.imgUrl = props.imgUrl;
-    this.moves = props.moves;
     this.types = props.types;
+    this.moves = props.moves;
   }
 
   attackPokemon(other: Pokemon, move: MoveProps, random = Math.random): number {
