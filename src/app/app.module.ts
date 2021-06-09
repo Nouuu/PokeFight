@@ -9,6 +9,7 @@ import {LogComponent} from './features/log/log.component';
 import {PokebuildService} from './utils/pokebuild.service';
 import {HttpClientModule} from '@angular/common/http';
 import {FightService} from './utils/fight.service';
+import {LogService} from './utils/log.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import {FightService} from './utils/fight.service';
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [PokebuildService, FightService],
+  providers: [PokebuildService, FightService, LogService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
