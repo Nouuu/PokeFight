@@ -19,6 +19,13 @@
           [style.width]="getCurrentHpPercents() + '%'"
         ></div>
       </div>
+      <div *ngIf="pokemon?.moves" class="attacks">
+        <ng-template ngFor let-move [ngForOf]="pokemon?.moves">
+          <button [type]="move.type" class="btn btn-primary" disabled>
+            {{ move.name }}
+          </button>
+        </ng-template>
+      </div>
     </div>
   </div>
 </div>
