@@ -1,5 +1,6 @@
 import {Pokemon} from '../models/Pokemon';
 import {Logs} from '../models/BattleLog';
+import {MoveProps} from '../models/Move';
 
 export class Arena {
   paused: boolean;
@@ -34,9 +35,10 @@ export class Arena {
       const interval = setInterval(() => {
         const victim: Pokemon = attacker === pok1 ? pok2 : pok1;
         if (!this.paused) {
-          const damage: number = attacker.attackPokemon(victim);
+          const move: MoveProps = attacker.moves[Math.floor(Math.random() * attacker.moves.length)];
+          const damage: number = attacker.attackPokemon(victim, move);
           if (enableLog) {
-            logs.appendLog({pokemon: attacker, attackName: 'frappe', dealtDamage: damage});
+            logs.appendLog({pokemon: attacker, attack: move, dealtDamage: damage});
           }
         }
 
