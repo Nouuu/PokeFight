@@ -1,8 +1,9 @@
 import {Pokemon} from './Pokemon';
+import {MoveProps} from './Move';
 
 export type BattleLog = {
   pokemon: Pokemon;
-  attackName: string;
+  attack: MoveProps;
   dealtDamage: number;
 };
 

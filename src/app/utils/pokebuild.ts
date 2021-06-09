@@ -40,15 +40,17 @@ export class Pokebuild {
     const imgUrl = `https://img.pokemondb.net/sprites/home/normal/${name.toLowerCase()}.png`;
 
     const moves: MoveProps[] = await this.getMovesFromPokedex(pokemonFromApi.moves);
+
     return new Pokemon({name, speed, attack, maxLife, imgUrl, types, moves});
   }
 
   async getMovesFromPokedex(pokemonMoves: any[]): Promise<MoveProps[]> {
     const moves: MoveProps[] = [];
     while (moves.length < 4 && pokemonMoves.length > 0) {
-      const move: any = await this.httpClient.get(pokemonMoves[Math.random() * pokemonMoves.length].url).toPromise().catch(() => {
-        return null;
-      });
+      const move: any =
+        await this.httpClient.get(pokemonMoves[Math.floor(Math.random() * pokemonMoves.length)].move.url).toPromise().catch(() => {
+          return null;
+        });
       if (move.power) {
         moves.push({name: move.name, accuracy: move.accuracy, power: move.power, type: move.type});
       }

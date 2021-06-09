@@ -10,7 +10,8 @@ const pikachu: Pokemon = new Pokemon({
   attack: 55,
   maxLife: 35,
   imgUrl: 'https://img.pokemondb.net/sprites/home/normal/pikachu.png',
-  types: ['electric']
+  types: ['electric'],
+  moves: []
 });
 const carapuce: Pokemon = new Pokemon({
   name: 'squirtle',
@@ -18,7 +19,8 @@ const carapuce: Pokemon = new Pokemon({
   attack: 48,
   maxLife: 44,
   imgUrl: 'https://img.pokemondb.net/sprites/home/normal/squirtle.png',
-  types: ['water']
+  types: ['water'],
+  moves: []
 });
 
 // Pokemon { name: 'pikachu', speed: 90, attack: 55, life: 35 }

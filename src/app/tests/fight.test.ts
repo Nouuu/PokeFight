@@ -3,9 +3,25 @@ import {Arena} from '../utils/fight';
 import {Logs} from '../models/BattleLog';
 
 
-const carapuce: Pokemon = new Pokemon({name: 'squirtle', speed: 43, attack: 48, maxLife: 44, imgUrl: '', types: []});
+const carapuce: Pokemon = new Pokemon({
+  name: 'squirtle',
+  speed: 43,
+  attack: 48,
+  maxLife: 44,
+  imgUrl: '',
+  types: [],
+  moves: [{name: 'frappe', power: 10, accuracy: 100, type: 'normal'}]
+});
 // Pokemon { name: 'squirtle', speed: 43, attack: 48, life: 44 }
-const pikachu: Pokemon = new Pokemon({name: 'pikachu', speed: 90, attack: 55, maxLife: 35, imgUrl: '', types: []});
+const pikachu: Pokemon = new Pokemon({
+  name: 'pikachu',
+  speed: 90,
+  attack: 55,
+  maxLife: 35,
+  imgUrl: '',
+  types: [],
+  moves: [{name: 'frappe', power: 10, accuracy: 100, type: 'normal'}]
+});
 // Pokemon { name: 'pikachu', speed: 90, attack: 55, life: 35 }
 
 const arena: Arena = new Arena();
