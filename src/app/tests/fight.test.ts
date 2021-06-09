@@ -11,7 +11,7 @@ const carapuce: Pokemon = new Pokemon({
   maxLife: 44,
   imgUrl: '',
   types: [],
-  moves: [{name: 'frappe', power: 10, accuracy: 100, type: 'normal'}]
+  moves: [{name: 'frappe', power: 50, accuracy: 100, type: 'normal'}]
 });
 // Pokemon { name: 'squirtle', speed: 43, attack: 48, life: 44 }
 const pikachu: Pokemon = new Pokemon({
@@ -21,7 +21,7 @@ const pikachu: Pokemon = new Pokemon({
   maxLife: 35,
   imgUrl: '',
   types: [],
-  moves: [{name: 'frappe', power: 10, accuracy: 100, type: 'normal'}]
+  moves: [{name: 'frappe', power: 50, accuracy: 100, type: 'normal'}]
 });
 // Pokemon { name: 'pikachu', speed: 90, attack: 55, life: 35 }
 
@@ -76,7 +76,7 @@ describe('Test determine pokemon first attacker function', () => {
 });
 
 describe('Test pokemon fight Arena function', () => {
-  const mockIntervalMS = 10;
+  const mockIntervalMS = 5;
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [FightService, LogService]
@@ -102,7 +102,7 @@ describe('Test pokemon fight Arena function', () => {
     const arena: FightService = TestBed.inject(FightService);
     arena.setPaused(false);
     arena.setPokemons(pikachu, carapuce);
-    carapuce.currentLife = 1000;
+    carapuce.currentLife = 100;
     expect(await arena.fightArena(mockIntervalMS, false)).toBe(carapuce);
   });
 

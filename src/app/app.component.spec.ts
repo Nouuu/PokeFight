@@ -6,6 +6,9 @@ import {PokemonComponent} from './features/pokemon/pokemon.component';
 import {PokebuildService} from './utils/pokebuild.service';
 import {HttpClientModule} from '@angular/common/http';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {FightService} from './utils/fight.service';
+import {LogService} from './utils/log.service';
+import {LogDirective} from './features/log/log.directive';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -15,9 +18,9 @@ describe('AppComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AppComponent, LikeButtonComponent, LogComponent, PokemonComponent],
+      declarations: [AppComponent, LikeButtonComponent, LogComponent, PokemonComponent, LogDirective],
       imports: [HttpClientTestingModule],
-      providers: [PokebuildService]
+      providers: [PokebuildService, FightService, LogService]
     });
   });
 

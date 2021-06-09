@@ -18,13 +18,13 @@ describe('Test pokemon attack other Pokemon function', () => {
 
   describe('When pikachu is alive and attack carapuce', () => {
 
-    it('should remove 27.5 pv to carapuce when pikachu attack carapuce with 55 attack', () => {
+    it('should remove pv to carapuce when pikachu attack carapuce with 55 attack', () => {
       pikachu.attackPokemon(carapuce, move, randomMock);
-      expect(carapuce.currentLife).toBe(38.5);
+      expect(carapuce.currentLife).toBe(41.83);
     });
 
     it('should remove 55 pv to carapuce and KO when pikachu attack carapuce with 55 attack and critic', () => {
-      carapuce.currentLife = 5;
+      carapuce.currentLife = 2;
 
       randomMock = () => 1;
       pikachu.attackPokemon(carapuce, move, randomMock);
