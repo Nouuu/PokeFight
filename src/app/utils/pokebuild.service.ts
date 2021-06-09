@@ -47,24 +47,21 @@ export class PokebuildService {
   }
 
   async setMovesFromPokedex(pokemon: Pokemon, pokemonMoves: any[]): Promise<void> {
-    const moves: MoveProps[] = [];
     const getRandomMove = (pokeMoves: any[]) => {
       const index = Math.floor(Math.random() * pokemonMoves.length);
-
       return pokeMoves[index].move;
     };
-    while (moves.length < 4 && pokemonMoves.length > 0) {
+    while (pokemon.moves.length < 4 && pokemonMoves.length > 0) {
       const move: any = await this.httpClient.get(getRandomMove(pokemonMoves).url).toPromise().catch(() => {
         return null;
       });
       if (move?.power) {
-        moves.push({name: move.name, accuracy: move.accuracy, power: move.power, type: move.type.name});
+        pokemon.moves.push({name: move.name, accuracy: move.accuracy, power: move.power, type: move.type.name});
       }
       pokemonMoves = pokemonMoves.filter((moveItem) => {
-        return move?.name !== moveItem.name;
+        return move.name !== moveItem.move.name;
       });
     }
-    pokemon.moves = moves;
   }
 
 }
