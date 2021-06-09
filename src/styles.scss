@@ -1,63 +1,83 @@
 /* You can add global styles to this file, and also import other style files */
+@import "./assets/variables";
+
 .electric {
   color: #ffcc33;
+  background-color: $dark;
 }
 .normal {
   color: #aaaa99;
+  background-color: $dark;
 }
 .fire {
   color: #ff4422;
+  background-color: $dark;
 }
 
 .water {
   color: #3399ff;
+  background-color: $dark;
 }
 
 .grass {
   color: #77cc55;
+  background-color: $dark;
 }
 
 .ice {
   color: #66ccff;
+  background-color: $dark;
 }
 
 .fighting {
   color:#bb5544;
+  background-color: $light;
 }
 
 .poison {
   color: #a85497;
+  background-color: $light;
 }
 
 .ground {
   color: #ddbb55;
+  background-color: $dark;
 }
 
 .flying {
   color: #8899ff;
+  background-color: $dark;
 }
 
 .psychic {
   color: #ff5599;
+  background-color: $dark;
 }
 .bug {
   color: #aabb22;
+  background-color: $dark;
 }
 .rock {
   color: #bbaa66;
+  background-color: $dark;
 }
 .ghost {
   color: #6666bb;
+  background-color: $light;
 }
 .dragon {
   color: #7665ed;
+  background-color: $light;
 }
 .dark {
   color: #775544;
+  background-color: $light;
 }
 .steel {
   color: #aaaabb;
+  background-color: $dark;
 }
 .fairy {
   color: #ee99ee;
+  background-color: $dark;
 }
