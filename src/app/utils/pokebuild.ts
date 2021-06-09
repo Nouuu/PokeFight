@@ -1,7 +1,7 @@
 import {Pokemon} from '../models/Pokemon';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import { MoveProps } from '../models/Move';
+import {MoveProps} from '../models/Move';
 
 
 @Injectable()
@@ -38,16 +38,16 @@ export class Pokebuild {
     return new Pokemon({name, speed, attack, maxLife, imgUrl, moves});
   }
 
-  async getMovesFromPokedex(pokemonMoves: any[]): Promise<MoveProps[]>{
-    let moves: MoveProps[] = [];
-    while(moves.length < 4 && pokemonMoves.length > 0){
+  async getMovesFromPokedex(pokemonMoves: any[]): Promise<MoveProps[]> {
+    const moves: MoveProps[] = [];
+    while (moves.length < 4 && pokemonMoves.length > 0) {
       const move: any = await this.httpClient.get(pokemonMoves[Math.random() * pokemonMoves.length].url).toPromise().catch(() => {
         return null;
       });
-      if(move.power !== null){
-        moves.push({name: move.name,accuracy:move.accuracy, power:move.power,type:move.type});
+      if (move.power) {
+        moves.push({name: move.name, accuracy: move.accuracy, power: move.power, type: move.type});
       }
-      moves = moves.filter((moveItem)=> {
+      pokemonMoves = pokemonMoves.filter((moveItem) => {
         return move.name !== moveItem.name;
       });
     }

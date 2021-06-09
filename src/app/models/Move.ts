@@ -3,4 +3,4 @@ export type MoveProps = {
     type: string;
     power: number;
     accuracy: number;
-}
+};
