@@ -6,7 +6,7 @@
     <span> attack with </span>
     <span [appElementType]="battleLog.attack.type" class="badge">{{battleLog.attack.name}}</span>
     <span> and does </span>
-        <span class="text-danger">{{battleLog.dealtDamage}}</span>
-        <span> damage.</span>
-    </div>
+    <span class="text-danger">{{battleLog.dealtDamage | number: '1.0-2'}}</span>
+    <span> damage.</span>
+  </div>
 </div>
