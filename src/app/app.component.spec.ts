@@ -3,6 +3,9 @@ import {AppComponent} from './app.component';
 import {LikeButtonComponent} from './features/like-button/like-button.component';
 import {LogComponent} from './features/log/log.component';
 import {PokemonComponent} from './features/pokemon/pokemon.component';
+import {Pokebuild} from './utils/pokebuild';
+import {HttpClientModule} from '@angular/common/http';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -13,7 +16,9 @@ describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [AppComponent, LikeButtonComponent, LogComponent, PokemonComponent],
-    }).compileComponents();
+      imports: [HttpClientTestingModule],
+      providers: [Pokebuild]
+    });
   });
 
   beforeEach(() => {
