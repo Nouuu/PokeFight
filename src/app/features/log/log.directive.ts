@@ -1,16 +1,16 @@
-import { Directive, ElementRef, Input } from '@angular/core';
+import {Directive, ElementRef, Input, OnInit} from '@angular/core';
 
 @Directive({
   selector: '[type]'
 })
-export class LogDirective {
+export class LogDirective implements OnInit {
   @Input()
-  type: string = '';
+  type = '';
 
   constructor(private el: ElementRef) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.el.nativeElement.classList.add(this.type);
   }
 }
