@@ -1,3 +1,6 @@
+$light: #FFF;
+$dark: #000;
+
 .dead {
   filter: grayscale(100%);
 }
@@ -16,4 +19,89 @@
   row-gap: 0.3rem;
   column-gap: 0.3rem;
   margin: 0.5rem;
+
+  .btn {
+    color: transparent;
+    filter: contrast(200%);
+    &.electric {
+      background-color: #ffcc33;
+      color: $dark;
+    }
+    &.normal {
+      background-color: #aaaa99;
+      color: $dark;
+    }
+    &.fire {
+      background-color: #ff4422;
+      color: $dark;
+    }
+    
+    &.water {
+      background-color: #3399ff;
+      color: $dark;
+    }
+    
+    &.grass {
+      background-color: #77cc55;
+      color: $dark;
+    }
+    
+    &.ice {
+      background-color: #66ccff;
+      color: $dark;
+    }
+    
+    &.fighting {
+      background-color:#bb5544;
+      color:$light;
+    }
+    
+    &.poison {
+      background-color: #a85497;
+      color: $light;
+    }
+    
+    &.ground {
+      background-color: #ddbb55;
+      color: $dark;
+    }
+    
+    &.flying {
+      background-color: #8899ff;
+      color: $dark;
+    }
+    
+    &.psychic {
+      background-color: #ff5599;
+      color: $dark;
+    }
+    &.bug {
+      background-color: #aabb22;
+      color: $dark;
+    }
+    &.rock {
+      background-color: #bbaa66;
+      color: $dark;
+    }
+    &.ghost {
+      background-color: #6666bb;
+      color: $light;
+    }
+    &.dragon {
+      background-color: #7665ed;
+      color: $light;
+    }
+    &.dark {
+      background-color: #775544;
+      color: $light;
+    }
+    &.steel {
+      background-color: #aaaabb;
+      color: $dark;
+    }
+    &.fairy {
+      background-color: #ee99ee;
+      color: $dark;
+    }
+  }
 }
