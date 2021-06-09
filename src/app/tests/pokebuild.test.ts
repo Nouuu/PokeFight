@@ -4,8 +4,22 @@ import {TestBed} from '@angular/core/testing';
 import {HttpClientModule} from '@angular/common/http';
 
 
-const pikachu: Pokemon = new Pokemon({name: 'pikachu', speed: 90, attack: 55, maxLife: 35, imgUrl: 'https://img.pokemondb.net/sprites/home/normal/pikachu.png'});
-const carapuce: Pokemon = new Pokemon({name: 'squirtle', speed: 43, attack: 48, maxLife: 44, imgUrl: 'https://img.pokemondb.net/sprites/home/normal/squirtle.png'});
+const pikachu: Pokemon = new Pokemon({
+  name: 'pikachu',
+  speed: 90,
+  attack: 55,
+  maxLife: 35,
+  imgUrl: 'https://img.pokemondb.net/sprites/home/normal/pikachu.png',
+  types: ['electric']
+});
+const carapuce: Pokemon = new Pokemon({
+  name: 'squirtle',
+  speed: 43,
+  attack: 48,
+  maxLife: 44,
+  imgUrl: 'https://img.pokemondb.net/sprites/home/normal/squirtle.png',
+  types: ['water']
+});
 
 // Pokemon { name: 'pikachu', speed: 90, attack: 55, life: 35 }
 

@@ -1,9 +1,9 @@
 import {Pokemon} from '../models/Pokemon';
 
 
-const carapuce: Pokemon = new Pokemon({name: 'squirtle', speed: 43, attack: 48, maxLife: 44, imgUrl: ''});
+const carapuce: Pokemon = new Pokemon({name: 'squirtle', speed: 43, attack: 48, maxLife: 44, imgUrl: '', types: []});
 // Pokemon { name: 'squirtle', speed: 43, attack: 48, life: 44 }
-const pikachu: Pokemon = new Pokemon({name: 'pikachu', speed: 90, attack: 55, maxLife: 35, imgUrl: ''});
+const pikachu: Pokemon = new Pokemon({name: 'pikachu', speed: 90, attack: 55, maxLife: 35, imgUrl: '', types: []});
 // Pokemon { name: 'pikachu', speed: 90, attack: 55, life: 35 }
 
 describe('Test pokemon attack other Pokemon function', () => {

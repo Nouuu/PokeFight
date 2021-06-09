@@ -17,7 +17,7 @@ export class Pokebuild {
     const pokemonFromApi: any = await this.httpClient.get('https://pokeapi.co/api/v2/pokemon/' + name).toPromise().catch(() => {
       return null;
     });
-    
+
     if (!pokemonFromApi) {
       return undefined;
     }
@@ -35,7 +35,6 @@ export class Pokebuild {
     }).base_stat;
 
     const types: string[] = pokemonFromApi.types.map((el: any) => el.type.name);
-    
 
     const imgUrl = `https://img.pokemondb.net/sprites/home/normal/${name.toLowerCase()}.png`;
 
