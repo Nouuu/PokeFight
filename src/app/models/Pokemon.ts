@@ -1,3 +1,5 @@
+import { MoveProps } from './Move';
+
 export type PokemonProps = {
   name: string;
   speed: number;
@@ -5,6 +7,7 @@ export type PokemonProps = {
   attack: number;
   imgUrl: string;
   types: string[];
+  moves: MoveProps[];
 };
 
 export class Pokemon implements PokemonProps {
@@ -15,6 +18,7 @@ export class Pokemon implements PokemonProps {
   currentLife: number;
   imgUrl: string;
   types: string[];
+  moves: MoveProps[];
 
   constructor(props: PokemonProps) {
     this.name = props.name;
@@ -24,6 +28,7 @@ export class Pokemon implements PokemonProps {
     this.currentLife = props.maxLife;
     this.imgUrl = props.imgUrl;
     this.types = props.types;
+    this.moves = props.moves;
   }
 
   attackPokemon(other: Pokemon, random = Math.random): number {
