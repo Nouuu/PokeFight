@@ -5,7 +5,7 @@ import {MoveProps} from '../models/Move';
 
 
 @Injectable()
-export class Pokebuild {
+export class PokebuildService {
 
 
   constructor(private httpClient: HttpClient) {
@@ -39,12 +39,14 @@ export class Pokebuild {
 
     const imgUrl = `https://img.pokemondb.net/sprites/home/normal/${name.toLowerCase()}.png`;
 
-    const moves: MoveProps[] = await this.getMovesFromPokedex(pokemonFromApi.moves);
+    const pokemon: Pokemon = new Pokemon({name, speed, attack, maxLife, imgUrl, types, moves: []});
 
-    return new Pokemon({name, speed, attack, maxLife, imgUrl, types, moves});
+    this.setMovesFromPokedex(pokemon, pokemonFromApi.moves);
+
+    return pokemon;
   }
 
-  async getMovesFromPokedex(pokemonMoves: any[]): Promise<MoveProps[]> {
+  async setMovesFromPokedex(pokemon: Pokemon, pokemonMoves: any[]): Promise<void> {
     const moves: MoveProps[] = [];
     const getRandomMove  = (pokeMoves: any[]) => {
       const index = Math.floor(Math.random() * pokemonMoves.length);
@@ -62,7 +64,7 @@ export class Pokebuild {
         return move.name !== moveItem.name;
       });
     }
-    return moves;
+    pokemon.moves = moves;
   }
 
 }

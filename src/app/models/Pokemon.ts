@@ -37,8 +37,8 @@ export class Pokemon implements PokemonProps {
       if (random() > 0.9) {
         multiplier = 2;
       }
-      const damage = ((this.attack * move.power) / 100) * multiplier;
-      other.currentLife = Math.max(0, other.currentLife - damage);
+      const damage = parseFloat((((this.attack + move.power) / 30) * multiplier).toFixed(2));
+      other.currentLife = parseFloat(Math.max(0, other.currentLife - damage).toFixed(2));
       return damage;
     }
     return 0;
