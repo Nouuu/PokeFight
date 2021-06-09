@@ -2,6 +2,7 @@ import {Pokemon} from '../models/Pokemon';
 import {MoveProps} from '../models/Move';
 import {Injectable} from '@angular/core';
 import {LogService} from './log.service';
+import {BattleLog} from '../models/BattleLog';
 
 @Injectable()
 export class FightService {
@@ -14,6 +15,10 @@ export class FightService {
     this.paused = true;
     this.pok1 = undefined;
     this.pok2 = undefined;
+  }
+
+  getLogs(): BattleLog[] {
+    return this.logs.logs;
   }
 
   getPokemon1(): Pokemon | undefined {
@@ -91,8 +96,8 @@ export class FightService {
     this.pok2 = pok2;
   }
 
-  async fightArena(pok1: Pokemon, pok2: Pokemon, intervalMS = 1000, enableLog = true): Promise<Pokemon> {
-    this.setPokemons(pok1, pok2);
+  async fightArena(intervalMS = 1000, enableLog = true): Promise<Pokemon> {
+    this.paused = true;
     this.logs.resetLogs();
     const attacker = await this.determineAttacker();
 
