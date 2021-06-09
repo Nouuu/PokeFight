@@ -1,10 +1,11 @@
 <div class="container border rounded overflow-auto logs mb-3">
-    <p *ngIf="logs?.getWinner()" class="display-4 text-danger text-center">{{logs?.getWinner()?.name}} won the battle !</p>
-    <div class="my-2" *ngFor="let battleLog of logs?.getLogs()">
-        <span [type]="battleLog.pokemon.types[0]" class="badge">{{battleLog.pokemon.name}}</span>
-        <span> attack with </span>
-        <span [type]="battleLog.attack.type" class="badge">{{battleLog.attack.name}}</span>
-        <span> and does </span>
+  <p *ngIf="logs?.getWinner()" class="display-4 text-danger text-center">{{logs?.getWinner()?.name}} won the battle
+    !</p>
+  <div class="my-2" *ngFor="let battleLog of logs?.getLogs()">
+    <span [appElementType]="battleLog.pokemon.types[0]" class="badge">{{battleLog.pokemon.name}}</span>
+    <span> attack with </span>
+    <span [appElementType]="battleLog.attack.type" class="badge">{{battleLog.attack.name}}</span>
+    <span> and does </span>
         <span class="text-danger">{{battleLog.dealtDamage}}</span>
         <span> damage.</span>
     </div>
