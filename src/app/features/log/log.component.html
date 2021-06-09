@@ -3,7 +3,7 @@
     <div class="my-2" *ngFor="let battleLog of logs?.getLogs()">
         <span [type]="battleLog.pokemon.types[0]">{{battleLog.pokemon.name}}</span>
         <span> attack with </span>
-        <span class="text-danger">{{battleLog.attack.name}}</span>
+        <span [type]="battleLog.attack.type">{{battleLog.attack.name}}</span>
         <span> and does </span>
         <span class="text-danger">{{battleLog.dealtDamage}}</span>
         <span> damage.</span>

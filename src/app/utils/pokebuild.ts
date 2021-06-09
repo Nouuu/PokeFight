@@ -56,7 +56,7 @@ export class Pokebuild {
         return null;
       });
       if (move.power) {
-        moves.push({name: move.name, accuracy: move.accuracy, power: move.power, type: move.type});
+        moves.push({name: move.name, accuracy: move.accuracy, power: move.power, type: move.type.name});
       }
       pokemonMoves = pokemonMoves.filter((moveItem) => {
         return move.name !== moveItem.name;
