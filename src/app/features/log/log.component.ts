@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Logs} from 'src/app/models/BattleLog';
+import {LogService} from '../../utils/log.service';
 
 @Component({
   selector: 'app-log',
@@ -7,10 +7,8 @@ import {Logs} from 'src/app/models/BattleLog';
   styleUrls: ['./log.component.scss']
 })
 export class LogComponent implements OnInit {
-  @Input()
-  logs: Logs | undefined;
 
-  constructor() {
+  constructor(public logs: LogService) {
   }
 
   ngOnInit(): void {
