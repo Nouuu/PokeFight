@@ -11,6 +11,9 @@ export class Pokebuild {
   }
 
   async getPokemonFromPokedex(name: string): Promise<Pokemon | undefined> {
+    if (name.trim().length === 0) {
+      return undefined;
+    }
     const pokemonFromApi: any = await this.httpClient.get('https://pokeapi.co/api/v2/pokemon/' + name).toPromise().catch(() => {
       return null;
     });
