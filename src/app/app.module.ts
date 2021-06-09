@@ -10,14 +10,15 @@ import {PokebuildService} from './utils/pokebuild.service';
 import {HttpClientModule} from '@angular/common/http';
 import {FightService} from './utils/fight.service';
 import {LogService} from './utils/log.service';
+import {LogDirective} from './features/log/log.directive';
 
 @NgModule({
   declarations: [
+    LogDirective,
     AppComponent,
     LikeButtonComponent,
     PokemonComponent,
-    LogComponent,
-    LogDirective
+    LogComponent
   ],
   imports: [
     HttpClientModule,
