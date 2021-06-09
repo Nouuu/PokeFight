@@ -97,7 +97,7 @@ export class FightService {
   }
 
   async fightArena(intervalMS = 1000, enableLog = true): Promise<Pokemon> {
-    this.paused = true;
+    // this.paused = true;
     this.logs.resetLogs();
     const attacker = await this.determineAttacker();
 
