@@ -9,4 +9,8 @@
     <span class="text-danger">{{battleLog.dealtDamage | number: '1.0-2'}}</span>
     <span> damage.</span>
   </div>
+  <div>
+    <span>Battle started at </span>
+    <span class="text-info badge bg-dark">{{logs.getStartDate() | date:'HH:mm:ss'}}</span>
+  </div>
 </div>
