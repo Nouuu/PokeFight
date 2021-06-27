@@ -57,6 +57,7 @@ export class FightService {
 
   async startAttackInterval(attacker: Pokemon,
                             intervalMS: number, enableLog: boolean): Promise<void> {
+    this.logs.setStartTime(new Date());
     return new Promise<void>((resolve) => {
       const interval = setInterval(() => {
         if (this.pok1 && this.pok2) {

@@ -5,9 +5,7 @@
 
     <div class="mx-2">
       <div class="card-title">{{ pokemon?.name }}</div>
-      <div class="d-flex justify-content-end">
-        {{ pokemon?.currentLife?.toLocaleString(undefined, {maximumFractionDigits: 2}) }} / {{ pokemon?.maxLife }}
-      </div>
+      <div class="d-flex justify-content-end">{{ pokemon?.currentLife | number: '1.0-2' }} / {{ pokemon?.maxLife }}</div>
       <div class="progress">
         <div
           class="progress-bar progress-bar-striped"
@@ -23,7 +21,7 @@
       </div>
       <div *ngIf="pokemon?.moves" class="attacks">
         <ng-template ngFor let-move [ngForOf]="pokemon?.moves">
-          <button [type]="move.type" class="btn btn-primary" disabled>
+          <button [appElementType]="move.type" class="btn btn-primary" disabled>
             {{ move.name }}
           </button>
         </ng-template>
