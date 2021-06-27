@@ -5,7 +5,9 @@
 
     <div class="mx-2">
       <div class="card-title">{{ pokemon?.name }}</div>
-      <div class="d-flex justify-content-end">{{ pokemon?.currentLife }} / {{ pokemon?.maxLife }}</div>
+      <div class="d-flex justify-content-end">
+        {{ pokemon?.currentLife?.toLocaleString(undefined, {maximumFractionDigits: 2}) }} / {{ pokemon?.maxLife }}
+      </div>
       <div class="progress">
         <div
           class="progress-bar progress-bar-striped"
