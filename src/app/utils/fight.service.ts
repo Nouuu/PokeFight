@@ -3,6 +3,7 @@ import {MoveProps} from '../models/Move';
 import {Injectable} from '@angular/core';
 import {LogService} from './log.service';
 import {BattleLog} from '../models/BattleLog';
+import {interval} from "rxjs";
 
 @Injectable()
 export class FightService {
@@ -59,7 +60,31 @@ export class FightService {
                             intervalMS: number, enableLog: boolean): Promise<void> {
     this.logs.setStartTime(new Date());
     return new Promise<void>((resolve) => {
-      const interval = setInterval(() => {
+      const observable = interval(intervalMS)
+        .subscribe(() => {
+          if (this.pok1 && this.pok2) {
+            const victim: Pokemon = attacker === this.pok1 ? this.pok2 : this.pok1;
+            if (!this.paused) {
+              const move: MoveProps = attacker.moves[Math.floor(Math.random() * attacker.moves.length)];
+              const damage: number = attacker.attackPokemon(victim, move);
+              if (enableLog) {
+                this.logs.appendLog({pokemon: attacker, attack: move, dealtDamage: damage});
+              }
+            }
+
+            if (this.isAnyPokemonDead()) {
+              observable.unsubscribe();
+              resolve();
+            }
+            if (!this.paused) {
+              attacker = victim;
+            }
+          } else {
+            throw new Error('Pokemons are undefined');
+          }
+
+        });
+      /*const intervall =setInterval(() => {
         if (this.pok1 && this.pok2) {
           const victim: Pokemon = attacker === this.pok1 ? this.pok2 : this.pok1;
           if (!this.paused) {
@@ -71,7 +96,7 @@ export class FightService {
           }
 
           if (this.isAnyPokemonDead()) {
-            clearInterval(interval);
+            clearInterval(intervall);
             resolve();
           }
           if (!this.paused) {
@@ -80,7 +105,7 @@ export class FightService {
         } else {
           throw new Error('Pokemons are undefined');
         }
-      }, intervalMS);
+      }, intervalMS);*/
     });
   }
 
