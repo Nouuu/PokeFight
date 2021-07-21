@@ -15,7 +15,10 @@ export class PokebuildService {
 
   getPokemonFromPokedex(name: string): Observable<Pokemon | undefined> {
     if (name.trim().length === 0) {
-      return new Observable(undefined);
+      return new Observable(observer =>{
+        observer.next(undefined);
+        observer.unsubscribe();
+      });
     }
 
     return this.httpClient.get<any>('https://pokeapi.co/api/v2/pokemon/' + name)
