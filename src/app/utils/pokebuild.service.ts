@@ -1,7 +1,6 @@
 import {Pokemon} from '../models/Pokemon';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {MoveProps} from '../models/Move';
 
 
 @Injectable()
@@ -16,7 +15,7 @@ export class PokebuildService {
       return undefined;
     }
     const pokemonFromApi: any = await this.httpClient.get('https://pokeapi.co/api/v2/pokemon/' + name).toPromise().catch(() => {
-      return null;
+      return undefined;
     });
 
     if (!pokemonFromApi) {

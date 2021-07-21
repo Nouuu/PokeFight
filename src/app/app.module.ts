@@ -11,7 +11,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {FightService} from './utils/fight.service';
 import {LogService} from './utils/log.service';
 import {LogDirective} from './features/log/log.directive';
-import {CommonModule, DatePipe, DecimalPipe} from '@angular/common';
+import {CommonModule} from '@angular/common';
 
 @NgModule({
   declarations: [
