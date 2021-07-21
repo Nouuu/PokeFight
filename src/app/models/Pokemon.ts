@@ -37,7 +37,7 @@ export class Pokemon implements PokemonProps {
       if (random() > 0.9) {
         multiplier = 0.4;
       }
-      const damage = ((this.attack * move.power) / 100) * multiplier;
+      const damage = (((this.attack + move.power) / 30) * multiplier);
       other.currentLife = Math.max(0, other.currentLife - damage);
       return damage;
     }

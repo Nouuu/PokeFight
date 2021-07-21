@@ -9,36 +9,22 @@ import { FightService } from './utils/fight.service';
 })
 export class AppComponent implements OnInit {
   title = 'PokeFight';
-  pokemon1: Pokemon | undefined;
-  pokemon2: Pokemon | undefined;
-  logs: Logs | undefined;
-  arena: Arena | undefined;
 
-  constructor(
-    private pokebuild: PokebuildService,
-    public fightService: FightService
-  ) {}
-
-  async getPokemon(): Promise<void> {
-    this.pokemon1 = await this.pokebuild.getPokemonFromPokedex('alakazam');
-    this.pokemon2 = await this.pokebuild.getPokemonFromPokedex('gengar');
-    
+  constructor(private pokebuild: PokebuildService, public fightService: FightService) {
   }
 
   async ngOnInit(): Promise<void> {
-    await this.getPokemon();
-    this.logs = new Logs();
-    this.arena = new Arena();
-    this.onStartFight();
+    await this.setPokemons();
+    this.fightService.fightArena();
   }
 
   async setPokemons(): Promise<void> {
-    const pok1 = await this.pokebuild.getPokemonFromPokedex('dragonite');
-    const pok2 = await this.pokebuild.getPokemonFromPokedex('garchomp');
+    const pok1 = await this.pokebuild.getPokemonFromPokedex('pikachu');
+    const pok2 = await this.pokebuild.getPokemonFromPokedex('eevee');
     if (pok1 && pok2) {
       this.fightService.setPokemons(pok1, pok2);
     } else {
-      console.error('Can\'t start fight !');
+      throw new Error('Failed to build pokemons');
     }
   }
 }

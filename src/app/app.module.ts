@@ -6,24 +6,28 @@ import {AppComponent} from './app.component';
 import {LikeButtonComponent} from './features/like-button/like-button.component';
 import {PokemonComponent} from './features/pokemon/pokemon.component';
 import {LogComponent} from './features/log/log.component';
-import {Pokebuild} from './utils/pokebuild';
+import {PokebuildService} from './utils/pokebuild.service';
 import {HttpClientModule} from '@angular/common/http';
-import { LogDirective } from './features/log/log.directive';
+import {FightService} from './utils/fight.service';
+import {LogService} from './utils/log.service';
+import {LogDirective} from './features/log/log.directive';
+import {CommonModule} from '@angular/common';
 
 @NgModule({
   declarations: [
+    LogDirective,
     AppComponent,
     LikeButtonComponent,
     PokemonComponent,
-    LogComponent,
-    LogDirective
+    LogComponent
   ],
   imports: [
+    CommonModule,
     HttpClientModule,
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [Pokebuild],
+  providers: [PokebuildService, FightService, LogService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

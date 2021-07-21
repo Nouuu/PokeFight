@@ -1,11 +1,10 @@
 import {Pokemon} from '../models/Pokemon';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {MoveProps} from '../models/Move';
 
 
 @Injectable()
-export class Pokebuild {
+export class PokebuildService {
 
 
   constructor(private httpClient: HttpClient) {
@@ -16,7 +15,7 @@ export class Pokebuild {
       return undefined;
     }
     const pokemonFromApi: any = await this.httpClient.get('https://pokeapi.co/api/v2/pokemon/' + name).toPromise().catch(() => {
-      return null;
+      return undefined;
     });
 
     if (!pokemonFromApi) {
@@ -39,28 +38,29 @@ export class Pokebuild {
 
     const imgUrl = `https://img.pokemondb.net/sprites/home/normal/${name.toLowerCase()}.png`;
 
-    const moves: MoveProps[] = await this.getMovesFromPokedex(pokemonFromApi.moves);
+    const pokemon: Pokemon = new Pokemon({name, speed, attack, maxLife, imgUrl, types, moves: []});
 
-    return new Pokemon({name, speed, attack, maxLife, imgUrl, types, moves});
+    this.setMovesFromPokedex(pokemon, pokemonFromApi.moves);
+
+    return pokemon;
   }
 
-  async getMovesFromPokedex(pokemonMoves: any[]): Promise<MoveProps[]> {
-    const moves: MoveProps[] = [];
-    const getRandomMove  = (pokeMoves: any[]) => {
+  async setMovesFromPokedex(pokemon: Pokemon, pokemonMoves: any[]): Promise<void> {
+    const getRandomMove = (pokeMoves: any[]) => {
       const index = Math.floor(Math.random() * pokemonMoves.length);
-      
       return pokeMoves[index].move;
-    }
-    while (moves.length < 4 && pokemonMoves.length > 0) {
+    };
+    while (pokemon.moves.length < 4 && pokemonMoves.length > 0) {
       const move: any = await this.httpClient.get(getRandomMove(pokemonMoves).url).toPromise().catch(() => {
         return null;
       });
-      if (move.power) {
-        moves.push({name: move.name, accuracy: move.accuracy, power: move.power, type: move.type.name});
+      if (move?.power) {
+        pokemon.moves.push({name: move.name, accuracy: move.accuracy, power: move.power, type: move.type.name});
       }
-      pokemonMoves = pokemonMoves.filter((moveItem) => move.name !== moveItem.move.name);
+      pokemonMoves = pokemonMoves.filter((moveItem) => {
+        return move.name !== moveItem.move.name;
+      });
     }
-    return moves;
   }
 
 }

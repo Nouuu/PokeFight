@@ -1,6 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { LogComponent } from './log.component';
+import {LogComponent} from './log.component';
+import {LogService} from '../../utils/log.service';
+import {LogDirective} from './log.directive';
 
 describe('LogComponent', () => {
   let component: LogComponent;
@@ -8,9 +10,9 @@ describe('LogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LogComponent ]
-    })
-    .compileComponents();
+      declarations: [LogComponent, LogDirective],
+      providers: [LogService]
+    }).compileComponents();
   });
 
   beforeEach(() => {
