@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {PokebuildService} from './utils/pokebuild.service';
 import {FightService} from './utils/fight.service';
+import {Observable} from "rxjs";
 
 
 @Component({
@@ -14,18 +15,28 @@ export class AppComponent implements OnInit {
   constructor(private pokebuild: PokebuildService, public fightService: FightService) {
   }
 
-  async ngOnInit(): Promise<void> {
-    await this.setPokemons();
-    this.fightService.fightArena();
+  ngOnInit(): void {
+    this.setPokemons()
+      .subscribe(() => {
+        console.log('ready')
+        this.fightService.fightArena();
+      });
+    // this.fightService.fightArena();
   }
 
-  async setPokemons(): Promise<void> {
-    const pok1 = await this.pokebuild.getPokemonFromPokedex('pikachu');
-    const pok2 = await this.pokebuild.getPokemonFromPokedex('eevee');
-    if (pok1 && pok2) {
-      this.fightService.setPokemons(pok1, pok2);
-    } else {
-      throw new Error('Failed to build pokemons');
-    }
+  setPokemons(): Observable<void> {
+    return new Observable(observer => {
+      this.pokebuild.getPokemonFromPokedex('pikachu').subscribe(pok1 => {
+        this.pokebuild.getPokemonFromPokedex('eevee').subscribe(pok2 => {
+          if (pok1 && pok2) {
+            this.fightService.setPokemons(pok1, pok2);
+            observer.next();
+            observer.complete();
+          } else {
+            throw new Error('Failed to build pokemons');
+          }
+        });
+      });
+    })
   }
 }

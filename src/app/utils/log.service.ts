@@ -6,7 +6,7 @@ import {Pokemon} from '../models/Pokemon';
 export class LogService {
   logs: BattleLog[];
   winner: Pokemon | undefined;
-
+  startTime: Date | undefined;
 
   constructor() {
     this.logs = [];
@@ -32,9 +32,18 @@ export class LogService {
     return this.logs[Math.max(0, Math.min(this.logs.length - 1, index))];
   }
 
+  getStartDate(): Date | undefined {
+    return this.startTime;
+  }
+
+  setStartTime(startTime: Date): void {
+    this.startTime = startTime;
+  }
+
   resetLogs(): void {
     this.winner = undefined;
     this.logs = [];
+    this.startTime = undefined;
   }
 
 
