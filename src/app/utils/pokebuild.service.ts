@@ -91,7 +91,7 @@ export class PokebuildService {
         .pipe(
           map((move: any): { pokemon: Pokemon, pokemonMoves: any[], choosenMoves: MoveProps[] } => {
             if (move?.power) {
-              pokemon.moves.push({name: move.name, accuracy: move.accuracy, power: move.power, type: move.type.name});
+              choosenMoves.push({name: move.name, accuracy: move.accuracy, power: move.power, type: move.type.name});
             }
             pokemonMoves = pokemonMoves.filter((moveItem) => {
               return move.name !== moveItem.move.name;
@@ -106,6 +106,7 @@ export class PokebuildService {
             this.setMovesFromPokedex(data.pokemon, data.pokemonMoves, data.choosenMoves)
           ));
     }
+    pokemon.moves = choosenMoves;
     return new Observable(observer => {
       observer.next(pokemon);
       observer.complete();
