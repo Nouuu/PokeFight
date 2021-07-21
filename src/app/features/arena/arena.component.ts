@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { PokebuildService } from './utils/pokebuild.service';
-import { FightService } from './utils/fight.service';
+import { PokebuildService } from '../../utils/pokebuild.service';
+import { FightService } from '../../utils/fight.service';
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  selector: 'app-arena',
+  templateUrl: './arena.component.html',
+  styleUrls: ['./arena.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class ArenaComponent implements OnInit {
   title = 'PokeFight';
 
   constructor(
