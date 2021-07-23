@@ -1,4 +1,4 @@
-import {MoveProps} from './Move';
+import { MoveProps } from './Move';
 
 export type PokemonProps = {
   name: string;
@@ -33,11 +33,11 @@ export class Pokemon implements PokemonProps {
 
   attackPokemon(other: Pokemon, move: MoveProps, random = Math.random): number {
     if (this.currentLife > 0) {
-      let multiplier = 1;
+      let multiplier = 0.2;
       if (random() > 0.9) {
-        multiplier = 2;
+        multiplier = 0.4;
       }
-      const damage = (((this.attack + move.power) / 30) * multiplier);
+      const damage = ((this.attack + move.power) / 30) * multiplier;
       other.currentLife = Math.max(0, other.currentLife - damage);
       return damage;
     }

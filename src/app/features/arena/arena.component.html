@@ -1,0 +1,41 @@
+<main>
+  <div class="container vh-100 d-flex flex-column">
+    <header class="mb-4"></header>
+    <div class="row align-items-center">
+      <div class="col-sm-6 col-lg-4 col-xl-3">
+        <app-pokemon [pokemon]="fightService.getPokemon1()"></app-pokemon>
+      </div>
+      <div class="d-none d-xl-block col-xl-6 text-center">
+        <img src="../../../assets/versus.png" class="mb-5 vs" alt="versus" />
+      </div>
+      <div class="offset-lg-4 offset-xl-0 col-sm-6 col-lg-4 col-xl-3">
+        <app-pokemon [pokemon]="fightService.getPokemon2()"></app-pokemon>
+      </div>
+    </div>
+
+    <div class="row my-2">
+      <div class="col-4 offset-4 d-flex justify-content-center gap-4">
+        <button
+          class="btn btn-primary w-100"
+          [ngClass]="fightService.isPaused() ? 'btn-primary' : 'btn-warning'"
+          [disabled]="!fightService.getPokemon1() || !fightService.getPokemon2()"
+          (click)="fightService.setPaused(!fightService.isPaused())"
+        >
+          {{ fightService.isPaused() ? "Start" : "Pause" }}
+          fight
+        </button>
+        <button
+          class="btn btn-danger w-100"
+          routerLink="/"
+        >
+          Back to menu
+        </button>
+      </div>
+    </div>
+    <div class="row flex-grow-1">
+      <div class="col-12">
+        <app-log></app-log>
+      </div>
+    </div>
+  </div>
+</main>

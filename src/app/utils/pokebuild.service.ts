@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from "rxjs";
 import {map, mergeMap} from "rxjs/operators";
 import {MoveProps} from "../models/Move";
+import {PokeAPIResponse, PokeAPIResponseMove, PokeAPIResponsePokemonMove} from "../models/PokeAPIResponse";
 
 
 @Injectable()
@@ -15,31 +16,35 @@ export class PokebuildService {
 
   getPokemonFromPokedex(name: string): Observable<Pokemon | undefined> {
     if (name.trim().length === 0) {
-      return new Observable(observer =>{
+      return new Observable(observer => {
         observer.next(undefined);
         observer.unsubscribe();
       });
     }
 
-    return this.httpClient.get<any>('https://pokeapi.co/api/v2/pokemon/' + name)
+    return this.httpClient.get<PokeAPIResponse>('https://pokeapi.co/api/v2/pokemon/' + name)
       .pipe(
-        map((pokemonFromApi: any): { pokemon: Pokemon, moves: any } => {
+        map((pokemonFromApi): { pokemon: Pokemon, moves: PokeAPIResponsePokemonMove[] } => {
           if (!pokemonFromApi) {
             throw new Error('Pokemon not found')
           }
-          const speed: number = pokemonFromApi.stats.find((element: any) => {
+          const speed: number | undefined = pokemonFromApi.stats.find((element) => {
             return element.stat.name === 'speed';
-          }).base_stat;
+          })?.base_stat;
 
-          const attack: number = pokemonFromApi.stats.find((element: any) => {
+          const attack: number | undefined = pokemonFromApi.stats.find((element) => {
             return element.stat.name === 'attack';
-          }).base_stat;
+          })?.base_stat;
 
-          const maxLife: number = pokemonFromApi.stats.find((element: any) => {
+          const maxLife: number | undefined = pokemonFromApi.stats.find((element) => {
             return element.stat.name === 'hp';
-          }).base_stat;
+          })?.base_stat;
 
-          const types: string[] = pokemonFromApi.types.map((el: any) => el.type.name);
+          if (!speed || !attack || !maxLife) {
+            throw new Error('Can\'t found all pokemon properties for ' + name)
+          }
+
+          const types: string[] = pokemonFromApi.types.map((el) => el.type.name);
 
           const imgUrl = `https://img.pokemondb.net/sprites/home/normal/${name.toLowerCase()}.png`;
 
@@ -48,7 +53,7 @@ export class PokebuildService {
             moves: pokemonFromApi.moves
           };
         }),
-        mergeMap((data: { pokemon: Pokemon, moves: any }): Observable<Pokemon> =>
+        mergeMap((data: { pokemon: Pokemon, moves: PokeAPIResponsePokemonMove[] }): Observable<Pokemon> =>
           this.setMovesFromPokedex(data.pokemon, data.moves))
       );
     /*
@@ -84,15 +89,15 @@ export class PokebuildService {
     */
   }
 
-  setMovesFromPokedex(pokemon: Pokemon, pokemonMoves: any[], choosenMoves: MoveProps[] = []): Observable<Pokemon> {
-    const getRandomMove = (pokeMoves: any[]) => {
+  setMovesFromPokedex(pokemon: Pokemon, pokemonMoves: PokeAPIResponsePokemonMove[], choosenMoves: MoveProps[] = []): Observable<Pokemon> {
+    const getRandomMove = (pokeMoves: PokeAPIResponsePokemonMove[]) => {
       const index = Math.floor(Math.random() * pokemonMoves.length);
       return pokeMoves[index].move;
     };
     if (choosenMoves.length < 4 && pokemonMoves.length > 0) {
-      return this.httpClient.get<any>(getRandomMove(pokemonMoves).url)
+      return this.httpClient.get<PokeAPIResponseMove>(getRandomMove(pokemonMoves).url)
         .pipe(
-          map((move: any): { pokemon: Pokemon, pokemonMoves: any[], choosenMoves: MoveProps[] } => {
+          map((move): { pokemon: Pokemon, pokemonMoves: PokeAPIResponsePokemonMove[], choosenMoves: MoveProps[] } => {
             if (move?.power) {
               choosenMoves.push({name: move.name, accuracy: move.accuracy, power: move.power, type: move.type.name});
             }
@@ -105,7 +110,7 @@ export class PokebuildService {
               choosenMoves
             }
           }),
-          mergeMap((data: { pokemon: Pokemon, pokemonMoves: any[], choosenMoves: MoveProps[] }): Observable<Pokemon> =>
+          mergeMap((data: { pokemon: Pokemon, pokemonMoves: PokeAPIResponsePokemonMove[], choosenMoves: MoveProps[] }): Observable<Pokemon> =>
             this.setMovesFromPokedex(data.pokemon, data.pokemonMoves, data.choosenMoves)
           ));
     }
@@ -131,6 +136,35 @@ export class PokebuildService {
           });
         }
     */
+  }
+
+  getPokelist(limit: number): Observable<Pokemon[]> {
+    return this.httpClient.get<{ count: number, results: { name: string, url: string }[] }>('https://pokeapi.co/api/v2/pokemon?limit=' + limit)
+      .pipe(
+        map((result): Pokemon[] => {
+          const pokelist: Pokemon[] = [];
+          for (const data of result.results) {
+            this.getPokemonFromPokedexLight(data.url).subscribe((pokemon) => pokelist.push(pokemon));
+          }
+          return pokelist;
+        })
+      )
+  }
+
+  getPokemonFromPokedexLight(url: string): Observable<Pokemon> {
+    return this.httpClient.get<PokeAPIResponse>(url)
+      .pipe(
+        map((pokemonFromApi): Pokemon => {
+          if (!pokemonFromApi) {
+            throw new Error('Pokemon not found')
+          }
+
+          const name: string = pokemonFromApi.name;
+
+          const imgUrl = `https://img.pokemondb.net/sprites/home/normal/${name.toLowerCase()}.png`;
+
+          return new Pokemon({name, imgUrl, moves: [], types: [], attack: 0, speed: 0, maxLife: 0});
+        }));
   }
 
 }
