@@ -14,15 +14,21 @@
     </div>
 
     <div class="row my-2">
-      <div class="col-4 offset-4 d-flex justify-content-center">
+      <div class="col-4 offset-4 d-flex justify-content-center gap-4">
         <button
           class="btn btn-primary w-100"
-          [ngClass]="fightService.isPaused() ? 'btn-primary' : 'btn-danger'"
+          [ngClass]="fightService.isPaused() ? 'btn-primary' : 'btn-warning'"
           [disabled]="!fightService.getPokemon1() || !fightService.getPokemon2()"
           (click)="fightService.setPaused(!fightService.isPaused())"
         >
           {{ fightService.isPaused() ? "Start" : "Pause" }}
           fight
+        </button>
+        <button
+          class="btn btn-danger w-100"
+          routerLink="/"
+        >
+          Back to menu
         </button>
       </div>
     </div>
