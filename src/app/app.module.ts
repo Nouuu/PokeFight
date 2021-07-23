@@ -12,8 +12,9 @@ import { FightService } from './utils/fight.service';
 import { LogService } from './utils/log.service';
 import { LogDirective } from './features/log/log.directive';
 import { CommonModule } from '@angular/common';
-import { SelectionComponent } from './features/pokeselect/selection/selection.component';
+import { ListComponent } from './features/pokeselect/list/list.component';
 import { ArenaComponent } from './features/arena/arena.component';
+import { ChoiceComponent } from './features/pokeselect/choice/choice.component';
 
 @NgModule({
   declarations: [
@@ -22,8 +23,9 @@ import { ArenaComponent } from './features/arena/arena.component';
     LikeButtonComponent,
     PokemonComponent,
     LogComponent,
-    SelectionComponent,
+    ListComponent,
     ArenaComponent,
+    ChoiceComponent,
   ],
   imports: [CommonModule, HttpClientModule, BrowserModule, AppRoutingModule],
   providers: [PokebuildService, FightService, LogService],
