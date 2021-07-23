@@ -1,17 +1,37 @@
-<div class="card text-white bg-dark">
-  <div class="card-body row">
-    <div class="col">
-      <img
-        src="https://www.pokepedia.fr/images/c/c6/XD001.png"
-        alt="dark lugia"
-      />
+<div class="container sticky">
+  <div class="card text-white bg-dark">
+    <div class="card-body row align-items-center">
+      <div class="col">
+        <div *ngIf="poke1">
+          <img [src]="poke1.imgUrl" [alt]="poke1.name" />
+          <button
+            (click)="removePokemon.emit(poke1)"
+            class="btn btn-outline-danger"
+          >
+            <img src="../../../../assets/trash.svg" alt="delete" />
+          </button>
+        </div>
+      </div>
+      <div class="col">
+        <div *ngIf="poke2">
+          <img [src]="poke2.imgUrl" [alt]="poke2.name" />
+          <button
+            (click)="removePokemon.emit(poke2)"
+            class="btn btn-outline-danger"
+          >
+            <img src="../../../../assets/trash.svg" alt="delete" />
+          </button>
+        </div>
+      </div>
+      <div class="col">
+        <button
+          (click)="gotoBattle()"
+          [disabled]="!poke1 || !poke2"
+          class="btn-grad"
+        >
+          Start !
+        </button>
+      </div>
     </div>
-    <div class="col">
-      <img
-        src="https://resize-gulli.jnsmedia.fr/r/890,__ym__/img//var/jeunesse/storage/images/gulli/chaine-tv/dessins-animes/pokemon/pokemon/pikachu/26571681-1-fre-FR/Pikachu.jpg"
-        alt="pikatchu"
-      />
-    </div>
-    <div class="col"><button class="btn-grad">Start !</button></div>
   </div>
 </div>
