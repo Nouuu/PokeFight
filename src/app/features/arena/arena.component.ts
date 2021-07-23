@@ -9,16 +9,11 @@ import { Observable } from 'rxjs';
 })
 export class ArenaComponent implements OnInit {
   title = 'PokeFight';
-  battleSoundEffect: HTMLAudioElement;
 
   constructor(
     private pokebuild: PokebuildService,
     public fightService: FightService
   ) {
-    this.battleSoundEffect = new Audio('../../assets/battle_sound_effect.mp3');
-    this.battleSoundEffect.load();
-    this.battleSoundEffect.loop = true;
-    this.battleSoundEffect.volume = 0.025;
   }
 
   async ngOnInit(): Promise<void> {
@@ -31,12 +26,6 @@ export class ArenaComponent implements OnInit {
 
   toggleBattle(): void{
     this.fightService.setPaused(!this.fightService.isPaused());
-    if (!this.fightService.isPaused()){
-      this.battleSoundEffect.play().then();
-    }
-    else{
-      this.battleSoundEffect.pause();
-    }
   }
 
   setPokemons(): Observable<void> {
