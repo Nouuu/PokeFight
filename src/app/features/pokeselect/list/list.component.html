@@ -4,6 +4,10 @@
     [poke2]="pokemonSelectioned[1]"
     (removePokemon)="removePokemon($event)"
   ></app-choice>
+  <audio></audio>
+  <audio autoplay loop id="playAudio" [volume]="0.025">
+    <source src="/assets/pokeselect_menu_sound_effect.mp3">
+  </audio>
   <!-- div fixed at top for with pokemons selection delete and gotoBattle -->
   <div class="container">
     <div class="row top-row">
