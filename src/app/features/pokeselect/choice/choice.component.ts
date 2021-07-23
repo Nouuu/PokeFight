@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Pokemon } from 'src/app/models/Pokemon';
 
@@ -12,6 +12,9 @@ export class ChoiceComponent implements OnInit {
   poke1?: Pokemon;
   @Input()
   poke2?: Pokemon;
+
+  @Output()
+  removePokemon = new EventEmitter<Pokemon>();
   constructor(private router: Router) {}
 
   ngOnInit(): void {}

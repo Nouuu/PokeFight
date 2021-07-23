@@ -2,6 +2,7 @@
   <app-choice
     [poke1]="pokemonSelectioned[0]"
     [poke2]="pokemonSelectioned[1]"
+    (removePokemon)="removePokemon($event)"
   ></app-choice>
   <!-- div fixed at top for with pokemons selection delete and gotoBattle -->
   <div class="container">
@@ -13,11 +14,15 @@
       >
         <div class="card text-white bg-dark mb-3">
           <div class="card-body">
-            <h3 class="text-center">{{ poke.name }}</h3>
+            <h3 class="text-center text-capitalize">{{ poke.name }}</h3>
           </div>
           <img [src]="poke.imgUrl" alt="IMAGE" class="img-fluid" />
-          <button (click)="selectPokemon(i)" class="btn-grad">
-            Je te choisi
+          <button
+            *ngIf="pokemonSelectioned.length < 2"
+            (click)="selectPokemon(i)"
+            class="btn-grad"
+          >
+            I choice YOU
           </button>
         </div>
       </div>

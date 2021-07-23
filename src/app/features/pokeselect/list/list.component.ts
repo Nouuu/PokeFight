@@ -26,7 +26,12 @@ export class ListComponent implements OnInit {
   }
 
   selectPokemon(index: number): void {
-    console.log(index);
     this.pokemonSelectioned.push(this.pokemons[index]);
+  }
+
+  removePokemon(removedPokemon: Pokemon) {
+    this.pokemonSelectioned = this.pokemonSelectioned.filter(
+      (poke) => poke != removedPokemon
+    );
   }
 }
