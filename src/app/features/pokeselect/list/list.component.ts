@@ -11,6 +11,7 @@ import { PokebuildService } from 'src/app/utils/pokebuild.service';
 export class ListComponent implements OnInit {
   constructor(private pokebuild: PokebuildService) {}
   pokemons: Pokemon[] = [];
+  pokemonSelectioned: Pokemon[] = [];
   ngOnInit(): void {
     this.setPokemons().subscribe(() => {
       console.log('ready');
@@ -22,5 +23,10 @@ export class ListComponent implements OnInit {
         this.pokemons = pokeList;
       });
     });
+  }
+
+  selectPokemon(index: number): void {
+    console.log(index);
+    this.pokemonSelectioned.push(this.pokemons[index]);
   }
 }

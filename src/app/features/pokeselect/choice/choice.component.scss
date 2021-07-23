@@ -1,8 +1,3 @@
-.card {
-  width: 80%;
-  margin: 0 auto;
-}
-
 img {
   max-height: 6rem;
 }
@@ -19,7 +14,6 @@ img {
 .btn-grad {
   margin: 10px;
   padding: 15px 45px;
-  text-align: center;
   text-transform: uppercase;
   transition: 0.5s;
   background-size: 200% auto;
@@ -29,8 +23,10 @@ img {
   border: none;
 }
 
+.btn-grad[disabled] {
+  background: rgb(89, 129, 156);
+}
+
 .btn-grad:hover {
-  background-position: right center; /* change the direction of the change here */
-  color: #fff;
-  text-decoration: none;
+  background-position: right center;
 }

@@ -5,7 +5,7 @@ main {
 }
 
 .top-row {
-  padding-top: 10rem;
+  padding-top: 4rem;
 }
 
 .card {
@@ -31,7 +31,6 @@ img {
   transform: translateX(-50%);
   margin-bottom: -15px;
   padding: 5px 12px;
-  text-align: center;
   text-transform: uppercase;
   transition: 0.5s;
   background-size: 200% auto;
@@ -39,8 +38,4 @@ img {
   border-radius: 7px;
   display: block;
   border: none;
-}
-
-.btn-grad:hover {
-  background-position: right center;
 }

@@ -1,15 +1,24 @@
 <main>
-  <app-choice></app-choice>
+  <app-choice
+    [poke1]="pokemonSelectioned[0]"
+    [poke2]="pokemonSelectioned[1]"
+  ></app-choice>
   <!-- div fixed at top for with pokemons selection delete and gotoBattle -->
   <div class="container">
     <div class="row top-row">
-      <div *ngFor="let poke of pokemons" class="col-xl-3 col-md-4 mb-5">
+      <div
+        *ngFor="let poke of pokemons; let i = index"
+        [attr.data-index]="i"
+        class="col-xl-3 col-md-4 mb-5"
+      >
         <div class="card text-white bg-dark mb-3">
           <div class="card-body">
             <h3 class="text-center">{{ poke.name }}</h3>
           </div>
           <img [src]="poke.imgUrl" alt="IMAGE" class="img-fluid" />
-          <button class="btn-grad">Je te choisi</button>
+          <button (onclick)="selectPokemon(i)" class="btn-grad">
+            Je te choisi
+          </button>
         </div>
       </div>
     </div>
