@@ -122,6 +122,13 @@ export class FightService {
     this.pok2 = pok2;
   }
 
+  resetArena(): void {
+    this.pok1 = undefined;
+    this.pok2 = undefined;
+    this.paused = true;
+    this.logs.resetLogs();
+  }
+
   async fightArena(intervalMS = 1000, enableLog = true): Promise<Pokemon> {
     // this.paused = true;
     this.logs.resetLogs();
