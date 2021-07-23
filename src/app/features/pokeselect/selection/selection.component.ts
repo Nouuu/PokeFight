@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import { Pokemon } from 'src/app/models/Pokemon';
 
 @Component({
@@ -7,7 +7,11 @@ import { Pokemon } from 'src/app/models/Pokemon';
   styleUrls: ['./selection.component.scss'],
 })
 export class SelectionComponent implements OnInit {
-  constructor() {}
+  constructor() {
+  }
+  @ViewChild(HTMLAudioElement)
+  frameMusic!: HTMLAudioElement;
+
   pokemons: Pokemon[] = [
     new Pokemon({
       name: 'eevee',
@@ -37,5 +41,7 @@ export class SelectionComponent implements OnInit {
       imgUrl: '',
     }),
   ];
-  ngOnInit(): void {}
+
+  ngOnInit(): void {
+  }
 }

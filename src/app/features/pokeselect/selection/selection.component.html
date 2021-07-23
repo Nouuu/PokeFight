@@ -1,4 +1,8 @@
 <div class="container pt-4 grid lg:grid-col-3">
+  <audio ></audio>
+  <audio autoplay loop id="playAudio" [volume]="0.025">
+    <source src="/assets/pokeselect_menu_sound_effect.mp3">
+  </audio>
   <div *ngFor="let poke of pokemons" class="card mb-5">
     <div class="card-body">
       {{ poke.name }}
