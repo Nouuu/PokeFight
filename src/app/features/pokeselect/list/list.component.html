@@ -1,15 +1,44 @@
 <main>
-  <app-choice></app-choice>
+  <app-choice
+    [poke1]="pokemonSelectioned[0]"
+    [poke2]="pokemonSelectioned[1]"
+    (removePokemon)="removePokemon($event)"
+  ></app-choice>
+  <audio></audio>
+  <audio autoplay loop id="playAudio" [volume]="0.1">
+    <source src="/assets/pokeselect_menu_sound_effect.mp3">
+  </audio>
   <!-- div fixed at top for with pokemons selection delete and gotoBattle -->
   <div class="container">
     <div class="row top-row">
-      <div *ngFor="let poke of pokemons" class="col-md-4 mb-5">
+      <div class="col-xl-3 col-md-6 col-sm-12">
+        <div class="mb-3">
+          <label for="searchbar" class="form-label card p-2 text-light bg-dark">Search pokemon</label>
+          <input
+            [formControl]="searchInput"
+            (input)="onSearch()"
+            type="text" class="form-control text-light bg-dark" id="searchbar" placeholder="pikachu">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div
+        *ngFor="let poke of pokemonsFiltered; let i = index"
+        [attr.data-index]="i"
+        class="col-xl-2 col-md-3 mb-5"
+      >
         <div class="card text-white bg-dark mb-3">
           <div class="card-body">
-            <h3 class="text-center">{{ poke.name }}</h3>
+            <h3 class="text-center text-capitalize">{{ poke.name }}</h3>
           </div>
-          <img src="" alt="IMAGE" style="height: 24rem" />
-          <button class="btn-grad">Je te choisi</button>
+          <img [src]="poke.imgUrl" alt="IMAGE" class="img-fluid"/>
+          <button
+            *ngIf="pokemonSelectioned.length < 2"
+            (click)="selectPokemon(i)"
+            class="btn-grad"
+          >
+            I choose YOU
+          </button>
         </div>
       </div>
     </div>

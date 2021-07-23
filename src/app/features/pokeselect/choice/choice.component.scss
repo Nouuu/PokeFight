@@ -1,10 +1,10 @@
-.card {
-  width: 80%;
-  margin: 0 auto;
-}
-
 img {
   max-height: 6rem;
+}
+.sticky {
+  position: sticky;
+  top: 3px;
+  z-index: 100;
 }
 
 .btn-grad {
@@ -19,7 +19,6 @@ img {
 .btn-grad {
   margin: 10px;
   padding: 15px 45px;
-  text-align: center;
   text-transform: uppercase;
   transition: 0.5s;
   background-size: 200% auto;
@@ -29,8 +28,14 @@ img {
   border: none;
 }
 
+.btn-grad[disabled] {
+  background: rgb(89, 129, 156);
+}
+
 .btn-grad:hover {
-  background-position: right center; /* change the direction of the change here */
-  color: #fff;
-  text-decoration: none;
+  background-position: right center;
+}
+
+.btn-outline-danger {
+  background-color: #f09819;
 }

@@ -1,4 +1,8 @@
 <main>
+  <audio></audio>
+  <audio autoplay loop id="playAudio" [volume]="0.1">
+    <source src="/assets/battle_sound_effect.mp3">
+  </audio>
   <div class="container vh-100 d-flex flex-column">
     <header class="mb-4"></header>
     <div class="row align-items-center">
@@ -19,7 +23,7 @@
           class="btn btn-primary w-100"
           [ngClass]="fightService.isPaused() ? 'btn-primary' : 'btn-warning'"
           [disabled]="!fightService.getPokemon1() || !fightService.getPokemon2()"
-          (click)="fightService.setPaused(!fightService.isPaused())"
+          (click)="toggleBattle()"
         >
           {{ fightService.isPaused() ? "Start" : "Pause" }}
           fight
