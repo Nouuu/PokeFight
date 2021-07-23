@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ArenaComponent } from './features/arena/arena.component';
-import { SelectionComponent } from './features/pokeselect/selection/selection.component';
+import { ListComponent } from './features/pokeselect/list/list.component';
 
 export const routes: Routes = [
-  { path: '', component: SelectionComponent },
+  { path: '', component: ListComponent },
   { path: 'fight/:poke1/:poke2', component: ArenaComponent },
 ];
 

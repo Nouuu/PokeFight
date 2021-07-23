@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Pokemon } from 'src/app/models/Pokemon';
 
 @Component({
-  selector: 'app-selection',
-  templateUrl: './selection.component.html',
-  styleUrls: ['./selection.component.scss'],
+  selector: 'app-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.scss'],
 })
-export class SelectionComponent implements OnInit {
+export class ListComponent implements OnInit {
   constructor() {}
   pokemons: Pokemon[] = [
     new Pokemon({
