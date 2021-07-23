@@ -30,6 +30,7 @@ img {
   left: 50%;
   transform: translateX(-50%);
   margin-bottom: -15px;
+  font-size: 14px;
   padding: 5px 12px;
   text-transform: uppercase;
   transition: 0.5s;
@@ -38,6 +39,7 @@ img {
   border-radius: 7px;
   display: block;
   border: none;
+  white-space: nowrap;
 }
 .btn-grad:hover {
   background-position: right center;

@@ -30,6 +30,10 @@ export class ArenaComponent implements OnInit {
     // this.fightService.fightArena();
   }
 
+  toggleBattle(): void{
+    this.fightService.setPaused(!this.fightService.isPaused());
+  }
+
   setPokemons(pokemon1: string, pokemon2: string): Observable<void> {
     return new Observable((observer) => {
       this.pokebuild.getPokemonFromPokedex(pokemon1).subscribe((pok1) => {
