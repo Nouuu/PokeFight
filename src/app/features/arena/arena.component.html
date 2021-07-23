@@ -19,7 +19,7 @@
           class="btn btn-primary w-100"
           [ngClass]="fightService.isPaused() ? 'btn-primary' : 'btn-danger'"
           [disabled]="!fightService.getPokemon1() || !fightService.getPokemon2()"
-          (click)="fightService.setPaused(!fightService.isPaused())"
+          (click)="toggleBattle()"
         >
           {{ fightService.isPaused() ? "Start" : "Pause" }}
           fight
