@@ -16,7 +16,7 @@
         <div *ngIf="poke2">
           <img [src]="poke2.imgUrl" [alt]="poke2.name" />
           <button
-            (click)="removePokemon.emit(poke1)"
+            (click)="removePokemon.emit(poke2)"
             class="btn btn-outline-danger"
           >
             <img src="../../../../assets/trash.svg" alt="delete" />
