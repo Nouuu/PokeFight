@@ -15,7 +15,7 @@ export class PokebuildService {
 
   getPokemonFromPokedex(name: string): Observable<Pokemon | undefined> {
     if (name.trim().length === 0) {
-      return new Observable(observer =>{
+      return new Observable(observer => {
         observer.next(undefined);
         observer.unsubscribe();
       });
@@ -131,6 +131,35 @@ export class PokebuildService {
           });
         }
     */
+  }
+
+  getPokelist(limit: number): Observable<Pokemon[]> {
+    return this.httpClient.get<{ count: number, results: { name: string, url: string }[] }>('https://pokeapi.co/api/v2/pokemon?limit=' + limit)
+      .pipe(
+        map((result): Pokemon[] => {
+          const pokelist: Pokemon[] = [];
+          for (const data of result.results) {
+            this.getPokemonFromPokedexLight(data.url).subscribe((pokemon) => pokelist.push(pokemon));
+          }
+          return pokelist;
+        })
+      )
+  }
+
+  getPokemonFromPokedexLight(url: string): Observable<Pokemon> {
+    return this.httpClient.get<any>(url)
+      .pipe(
+        map((pokemonFromApi: any): Pokemon => {
+          if (!pokemonFromApi) {
+            throw new Error('Pokemon not found')
+          }
+
+          const name: string = pokemonFromApi.name;
+
+          const imgUrl = `https://img.pokemondb.net/sprites/home/normal/${name.toLowerCase()}.png`;
+
+          return new Pokemon({name, imgUrl, moves: [], types: [], attack: 0, speed: 0, maxLife: 0});
+        }));
   }
 
 }

@@ -6,7 +6,7 @@
         <app-pokemon [pokemon]="fightService.getPokemon1()"></app-pokemon>
       </div>
       <div class="d-none d-xl-block col-xl-6 text-center">
-        <img src="../assets/versus.png" class="mb-5 vs" alt="versus" />
+        <img src="../../../assets/versus.png" class="mb-5 vs" alt="versus" />
       </div>
       <div class="offset-lg-4 offset-xl-0 col-sm-6 col-lg-4 col-xl-3">
         <app-pokemon [pokemon]="fightService.getPokemon2()"></app-pokemon>
@@ -18,6 +18,7 @@
         <button
           class="btn btn-primary w-100"
           [ngClass]="fightService.isPaused() ? 'btn-primary' : 'btn-danger'"
+          [disabled]="!fightService.getPokemon1() || !fightService.getPokemon2()"
           (click)="fightService.setPaused(!fightService.isPaused())"
         >
           {{ fightService.isPaused() ? "Start" : "Pause" }}
