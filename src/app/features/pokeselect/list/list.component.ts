@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Pokemon} from 'src/app/models/Pokemon';
 import {PokebuildService} from 'src/app/utils/pokebuild.service';
-import {FormControl} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {types} from "../../../models/Types";
 
 @Component({
   selector: 'app-list',
@@ -10,7 +11,20 @@ import {FormControl} from "@angular/forms";
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit {
-  constructor(private pokebuild: PokebuildService) {
+
+  createForm: FormGroup;
+  types: string[] = []
+
+  constructor(@Inject(FormBuilder) fb: FormBuilder, private pokebuild: PokebuildService) {
+    this.createForm = fb.group({
+      name: ['', Validators.required],
+      speed: [0, Validators.required],
+      attack: [0, Validators.required],
+      life: [0, Validators.required],
+      imgUrl: ['', Validators.required],
+      types: [[], [Validators.required, Validators.minLength(1)]],
+      moves: [[], [Validators.required, Validators.minLength(1), Validators.maxLength(4)]]
+    })
   }
 
   pokemons: Pokemon[] = [];
@@ -23,6 +37,7 @@ export class ListComponent implements OnInit {
     this.setPokemons().subscribe(() => {
       console.log('ready');
     });
+    this.types = types;
   }
 
   setPokemons(): Observable<void> {
@@ -49,5 +64,9 @@ export class ListComponent implements OnInit {
     const value = this.searchInput.value.toLowerCase();
     this.pokemonsFiltered = this.pokemons.filter(pokemon =>
       pokemon.name.toLowerCase().indexOf(value) >= 0)
+  }
+
+  onCreatePokemon() {
+    console.log(this.createForm.value);
   }
 }
