@@ -1,11 +1,19 @@
-<div class="container pt-4 grid lg:grid-col-3">
-  <audio ></audio>
+<main>
   <audio autoplay loop id="playAudio" [volume]="0.025">
     <source src="/assets/pokeselect_menu_sound_effect.mp3">
   </audio>
-  <div *ngFor="let poke of pokemons" class="card mb-5">
-    <div class="card-body">
-      {{ poke.name }}
+  <!-- div fixed at top for with pokemons selection delete and gotoBattle -->
+  <div class="container">
+    <div class="row top-row">
+      <div *ngFor="let poke of pokemons" class="col-md-4 mb-5">
+        <div class="card text-white bg-dark mb-3">
+          <div class="card-body">
+            <h3 class="text-center">{{ poke.name }}</h3>
+          </div>
+          <img src="" alt="IMAGE" style="height: 24rem" />
+          <button class="btn-grad">Je te choisi</button>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+</main>
