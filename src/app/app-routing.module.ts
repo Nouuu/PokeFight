@@ -4,7 +4,7 @@ import { ArenaComponent } from './features/arena/arena.component';
 import { SelectionComponent } from './features/pokeselect/selection/selection.component';
 
 export const routes: Routes = [
-  { path: 'selection', component: SelectionComponent },
+  { path: '', component: SelectionComponent },
   { path: 'fight/:poke1/:poke2', component: ArenaComponent },
 ];
 
