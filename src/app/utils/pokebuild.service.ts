@@ -2,7 +2,7 @@ import {Pokemon} from '../models/Pokemon';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from "rxjs";
-import {map, mergeMap} from "rxjs/operators";
+import {catchError, map, mergeMap} from "rxjs/operators";
 import {MoveProps} from "../models/Move";
 import {PokeAPIResponse, PokeAPIResponseMove, PokeAPIResponsePokemonMove} from "../models/PokeAPIResponse";
 
@@ -42,10 +42,10 @@ export class PokebuildService {
 
     return this.httpClient.get<PokeAPIResponse>('https://pokeapi.co/api/v2/pokemon/' + name)
       .pipe(
+        catchError(() => {
+          throw new Error('Pokemon not found');
+        }),
         map((pokemonFromApi): { pokemon: Pokemon, moves: PokeAPIResponsePokemonMove[] } => {
-          if (!pokemonFromApi) {
-            throw new Error('Pokemon not found')
-          }
           const speed: number | undefined = pokemonFromApi.stats.find((element) => {
             return element.stat.name === 'speed';
           })?.base_stat;
@@ -172,11 +172,10 @@ export class PokebuildService {
   getPokemonFromPokedexLight(url: string): Observable<Pokemon> {
     return this.httpClient.get<PokeAPIResponse>(url)
       .pipe(
+        catchError(() => {
+          throw new Error('Pokemon not found');
+        }),
         map((pokemonFromApi): Pokemon => {
-          if (!pokemonFromApi) {
-            throw new Error('Pokemon not found')
-          }
-
           const name: string = pokemonFromApi.name;
 
           const imgUrl = `https://img.pokemondb.net/sprites/home/normal/${name.toLowerCase()}.png`;

@@ -1,8 +1,7 @@
-import {Pokemon} from '../models/Pokemon';
-import {FightService} from '../utils/fight.service';
-import {TestBed} from '@angular/core/testing';
-import {LogService} from '../utils/log.service';
-
+import { Pokemon } from '../models/Pokemon';
+import { FightService } from '../utils/fight.service';
+import { TestBed } from '@angular/core/testing';
+import { LogService } from '../utils/log.service';
 
 const carapuce: Pokemon = new Pokemon({
   name: 'squirtle',
@@ -11,7 +10,7 @@ const carapuce: Pokemon = new Pokemon({
   maxLife: 44,
   imgUrl: '',
   types: [],
-  moves: [{name: 'frappe', power: 50, accuracy: 100, type: 'normal'}]
+  moves: [{ name: 'frappe', power: 50, accuracy: 100, type: 'normal' }],
 });
 // Pokemon { name: 'squirtle', speed: 43, attack: 48, life: 44 }
 const pikachu: Pokemon = new Pokemon({
@@ -21,19 +20,18 @@ const pikachu: Pokemon = new Pokemon({
   maxLife: 35,
   imgUrl: '',
   types: [],
-  moves: [{name: 'frappe', power: 50, accuracy: 100, type: 'normal'}]
+  moves: [{ name: 'frappe', power: 50, accuracy: 100, type: 'normal' }],
 });
 // Pokemon { name: 'pikachu', speed: 90, attack: 55, life: 35 }
-
 
 describe('Test determine pokemon first attacker function', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [FightService, LogService]
+      providers: [FightService, LogService],
     });
   });
 
-  describe('When pokemon don\'t have same speed', () => {
+  describe("When pokemon don't have same speed", () => {
     it('should return Pikachu when Pikachu 90 speed attack Carapuce 43 speed', () => {
       const arena: FightService = TestBed.inject(FightService);
       arena.setPaused(false);
@@ -49,7 +47,7 @@ describe('Test determine pokemon first attacker function', () => {
     });
   });
   describe('When pokemon have same speed', () => {
-    let randomMock: (() => number);
+    let randomMock: () => number;
     beforeEach(() => {
       randomMock = () => 0.89;
       carapuce.speed = 15;
@@ -79,7 +77,7 @@ describe('Test pokemon fight Arena function', () => {
   const mockIntervalMS = 5;
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [FightService, LogService]
+      providers: [FightService, LogService],
     });
   });
   afterEach(() => {
@@ -113,15 +111,14 @@ describe('Test pokemon fight Arena function', () => {
     carapuce.currentLife = 0;
     await expect(async () => {
       await arena.fightArena();
-    }).rejects.toThrow('One or both pokemon is / are dead so can\'t fight');
+    }).rejects.toThrow("One or both pokemon is / are dead so can't fight");
   });
-
 });
 
 describe('Test is any pokemon dead function', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [FightService, LogService]
+      providers: [FightService, LogService],
     });
   });
   afterEach(() => {
@@ -167,7 +164,7 @@ describe('Test is any pokemon dead function', () => {
 describe('Test attack interval function', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [FightService, LogService]
+      providers: [FightService, LogService],
     });
   });
   afterEach(() => {
@@ -194,5 +191,22 @@ describe('Test attack interval function', () => {
     carapuce.currentLife = 3000;
     await arena.startAttackInterval(pikachu, 10, false);
     expect(pikachu.currentLife).toBe(0);
+  });
+
+  it('should take pikachu and squirtle', () => {
+    const arena: FightService = TestBed.inject(FightService);
+    arena.setPaused(false);
+    arena.setPokemons(pikachu, carapuce);
+    expect(arena.getPokemon1()).toBe(pikachu);
+    expect(arena.getPokemon2()).toBe(carapuce);
+    expect(arena.getLogs().length).toBe(0);
+  });
+
+  it('should throw an error cause of bad definition', async () => {
+    const arena: FightService = TestBed.inject(FightService);
+    arena.setPaused(false);
+    await expect(() => arena.determinefirstAttacker()).rejects.toThrow(
+      'Pokemons are undefined'
+    );
   });
 });
