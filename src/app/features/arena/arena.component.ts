@@ -47,10 +47,10 @@ export class ArenaComponent implements OnInit {
             throw new Error('Failed to build pokemons');
           }
         }, err => {
-          this.router.navigate(['/']);
+          this.router.navigate(['']);
         });
       }, err => {
-        this.router.navigate(['/']);
+        this.router.navigate(['']);
       });
     });
   }
