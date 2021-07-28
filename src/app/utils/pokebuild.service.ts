@@ -10,8 +10,18 @@ import {PokeAPIResponse, PokeAPIResponseMove, PokeAPIResponsePokemonMove} from "
 @Injectable()
 export class PokebuildService {
 
+  private customPokemons: Pokemon[] = [];
+
 
   constructor(private httpClient: HttpClient) {
+  }
+
+  addCustomPokemon(pokemon: Pokemon) {
+    this.customPokemons.push(pokemon);
+  }
+
+  getCustomPokemons(): Pokemon[] {
+    return this.customPokemons;
   }
 
   getPokemonFromPokedex(name: string): Observable<Pokemon | undefined> {
@@ -19,6 +29,14 @@ export class PokebuildService {
       return new Observable(observer => {
         observer.next(undefined);
         observer.unsubscribe();
+      });
+    }
+
+    const customPokemons = this.customPokemons.find(pokemon => pokemon.name === name);
+    if (customPokemons !== undefined) {
+      return new Observable(observer => {
+        observer.next(customPokemons);
+        observer.complete();
       });
     }
 
