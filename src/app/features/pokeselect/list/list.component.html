@@ -1,7 +1,7 @@
 <main>
   <app-choice
-    [poke1]="pokemonSelectioned[0]"
-    [poke2]="pokemonSelectioned[1]"
+    [poke1]="pokemonSelected[0]"
+    [poke2]="pokemonSelected[1]"
     (removePokemon)="removePokemon($event)"
   ></app-choice>
   <audio></audio>
@@ -13,17 +13,126 @@
     <div class="row top-row">
       <div class="col-xl-3 col-md-6 col-sm-12">
         <div class="mb-3">
+          <div class="row">
+
+          </div>
           <label for="searchbar" class="form-label card p-2 text-light bg-dark">Search pokemon</label>
           <input
             [formControl]="searchInput"
             (input)="onSearch()"
             type="text" class="form-control text-light bg-dark" id="searchbar" placeholder="pikachu">
+
+          <button class="btn btn-primary mt-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+                  aria-expanded="false" aria-controls="collapseExample">
+            Add custom pokemon
+          </button>
+
         </div>
       </div>
     </div>
+    <div class="collapse my-2" id="collapseExample">
+      <form class="p-4 card bg-dark text-light" [formGroup]="createForm">
+        <div class="card-title h2">Add custom pokemon</div>
+        <div class="row">
+          <div class="form-group my-2 col-xl-3 col-md-6 col-sm-12">
+            <label for="pokemonName">Pokemon name</label>
+            <input type="text" formControlName="name" class="form-control" id="pokemonName" placeholder="pikachu">
+          </div>
+
+          <div class="form-group my-2 col-xl-6 col-md-12">
+            <label for="pokemonImgUrl">Pokemon image URL</label>
+            <input type="text" formControlName="imgUrl" class="form-control" id="pokemonImgUrl" placeholder="pikachu">
+          </div>
+
+          <div class="form-group my-2 col-xl-2 col-md-6 col-sm-12">
+            <label for="pokemonSpeed">Pokemon speed</label>
+            <input type="number" min="1" step="1" max="999" formControlName="speed" class="form-control"
+                   id="pokemonSpeed">
+          </div>
+          <div class="form-group my-2 col-xl-2 col-md-6 col-sm-12">
+            <label for="pokemonAttack">Pokemon attack</label>
+            <input type="number" min="1" step="1" max="999" formControlName="attack" class="form-control"
+                   id="pokemonAttack">
+          </div>
+          <div class="form-group my-2 col-xl-2 col-md-6 col-sm-12">
+            <label for="pokemonLife">Pokemon life</label>
+            <input type="number" min="1" step="1" max="999" formControlName="life" class="form-control"
+                   id="pokemonLife">
+          </div>
+
+          <div class="form-group my-2 col-xl-3 col-md-6 col-sm-12">
+            <label for="pokemonTypes">Pokemon types (choose multiple)</label>
+            <select multiple class="form-control" formControlName="types" id="pokemonTypes">
+              <option *ngFor="let type of types">{{type}}</option>
+            </select>
+          </div>
+          <div class="my-2 col-xl-3 col-md-6 col-sm-12">
+            <label for="img">Pokemon image</label><br>
+            <img id="img" style="max-height: 200px; max-width: 200px" [src]="createForm.value.imgUrl"
+                 class="img-thumbnail rounded bg-dark" alt="no image">
+          </div>
+
+          <div class="my-2 col-xl-3 col-md-6 col-sm-12">
+            <label>Attacks</label><br>
+            <i *ngIf="createForm.value.moves?.length == 0">empty</i>
+            <div class="list-group gap-2 attacks">
+              <button *ngFor="let move of createForm.value.moves"
+                      [appElementType]="move.type"
+                      (click)="removeMove(move)"
+                      class="btn btn-danger list-group-item border border-white">
+                {{move.name}}
+              </button>
+            </div>
+          </div>
+
+
+          <div class="col-12 mt-4">
+            <button
+              class="btn btn-primary"
+              [disabled]="createForm.invalid"
+              (click)="onCreatePokemon()">Add pokemon
+            </button>
+          </div>
+        </div>
+      </form>
+      <form class="p-4 mt-2 card bg-dark text-light" [formGroup]="moveForm">
+        <div class="card-title h2">Add attack</div>
+        <div class="row">
+          <div class="form-group my-2 col-xl-3 col-md-6 col-sm-12">
+            <label for="moveName">Attack name</label>
+            <input type="text" formControlName="name" class="form-control" id="moveName" placeholder="mega-punch">
+          </div>
+
+          <div class="form-group my-2 col-xl-2 col-md-6 col-sm-12">
+            <label for="movePower">Attack power</label>
+            <input type="number" min="1" step="1" max="999" formControlName="power" class="form-control"
+                   id="movePower">
+          </div>
+          <div class="form-group my-2 col-xl-2 col-md-6 col-sm-12">
+            <label for="moveAccuracy">Attack accuracy</label>
+            <input type="number" min="1" step="1" max="999" formControlName="accuracy" class="form-control"
+                   id="moveAccuracy">
+          </div>
+
+          <div class="form-group my-2 col-xl-3 col-md-6 col-sm-12">
+            <label for="moveTypes">Attack type</label>
+            <select class="form-control" formControlName="type" id="moveTypes">
+              <option *ngFor="let type of types">{{type}}</option>
+            </select>
+          </div>
+
+          <div class="col-12 mt-4">
+            <button class="btn btn-primary"
+                    [disabled]="createForm.value.moves.length >= 4 || moveForm.invalid"
+                    (click)="onAddMove()">Add attack
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
     <div class="row">
       <div
-        *ngFor="let poke of pokemonsFiltered; let i = index"
+        *ngFor="let poke of pokemonFiltered; let i = index"
         [attr.data-index]="i"
         class="col-xl-2 col-md-3 mb-5"
       >
@@ -33,7 +142,7 @@
           </div>
           <img [src]="poke.imgUrl" alt="IMAGE" class="img-fluid"/>
           <button
-            *ngIf="pokemonSelectioned.length < 2"
+            *ngIf="pokemonSelected.length < 2"
             (click)="selectPokemon(i)"
             class="btn-grad"
           >

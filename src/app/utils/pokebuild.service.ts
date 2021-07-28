@@ -2,7 +2,7 @@ import {Pokemon} from '../models/Pokemon';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from "rxjs";
-import {map, mergeMap} from "rxjs/operators";
+import {catchError, map, mergeMap} from "rxjs/operators";
 import {MoveProps} from "../models/Move";
 import {PokeAPIResponse, PokeAPIResponseMove, PokeAPIResponsePokemonMove} from "../models/PokeAPIResponse";
 
@@ -10,8 +10,18 @@ import {PokeAPIResponse, PokeAPIResponseMove, PokeAPIResponsePokemonMove} from "
 @Injectable()
 export class PokebuildService {
 
+  private customPokemons: Pokemon[] = [];
+
 
   constructor(private httpClient: HttpClient) {
+  }
+
+  addCustomPokemon(pokemon: Pokemon) {
+    this.customPokemons.push(pokemon);
+  }
+
+  getCustomPokemons(): Pokemon[] {
+    return this.customPokemons;
   }
 
   getPokemonFromPokedex(name: string): Observable<Pokemon | undefined> {
@@ -22,12 +32,20 @@ export class PokebuildService {
       });
     }
 
+    const customPokemons = this.customPokemons.find(pokemon => pokemon.name === name);
+    if (customPokemons !== undefined) {
+      return new Observable(observer => {
+        observer.next(customPokemons);
+        observer.complete();
+      });
+    }
+
     return this.httpClient.get<PokeAPIResponse>('https://pokeapi.co/api/v2/pokemon/' + name)
       .pipe(
+        catchError(() => {
+          throw new Error('Pokemon not found');
+        }),
         map((pokemonFromApi): { pokemon: Pokemon, moves: PokeAPIResponsePokemonMove[] } => {
-          if (!pokemonFromApi) {
-            throw new Error('Pokemon not found')
-          }
           const speed: number | undefined = pokemonFromApi.stats.find((element) => {
             return element.stat.name === 'speed';
           })?.base_stat;
@@ -154,11 +172,10 @@ export class PokebuildService {
   getPokemonFromPokedexLight(url: string): Observable<Pokemon> {
     return this.httpClient.get<PokeAPIResponse>(url)
       .pipe(
+        catchError(() => {
+          throw new Error('Pokemon not found');
+        }),
         map((pokemonFromApi): Pokemon => {
-          if (!pokemonFromApi) {
-            throw new Error('Pokemon not found')
-          }
-
           const name: string = pokemonFromApi.name;
 
           const imgUrl = `https://img.pokemondb.net/sprites/home/normal/${name.toLowerCase()}.png`;
