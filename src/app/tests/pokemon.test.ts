@@ -20,7 +20,7 @@ describe('Test pokemon attack other Pokemon function', () => {
 
     it('should remove pv to carapuce when pikachu attack carapuce with 55 attack', () => {
       pikachu.attackPokemon(carapuce, move, randomMock);
-      expect(carapuce.currentLife).toBe(41.83);
+      expect(carapuce.currentLife).toBeCloseTo(41.83);
     });
 
     it('should remove 55 pv to carapuce and KO when pikachu attack carapuce with 55 attack and critic', () => {

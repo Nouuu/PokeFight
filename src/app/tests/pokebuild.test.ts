@@ -102,7 +102,7 @@ describe('Test pokebuild from API', () => {
     it('should return a list of non null or undefined pokemons', () => {
       const pokeBuild: PokebuildService = TestBed.inject(PokebuildService);
       pokeBuild.getPokelist(10).subscribe((pokemons) => {
-        expect(pokemons.every(pokemon => pokemon)).toBeTruthy();
+        expect(pokemons.every(pokemon => pokemon !== undefined && pokemon !== null)).toBeTruthy();
       });
     });
     it('should return a list of non null or undefined pokemons', () => {
