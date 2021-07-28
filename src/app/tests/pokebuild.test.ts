@@ -2,7 +2,6 @@ import { Pokemon } from '../models/Pokemon';
 import { PokebuildService } from '../utils/pokebuild.service';
 import { TestBed } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
-import {take} from 'rxjs/operators';
 
 const pikachu: Pokemon = new Pokemon({
   name: 'pikachu',
@@ -62,29 +61,29 @@ describe('Test pokebuild from API', () => {
       });
     });
 
-    it('should only have moves with a power greater than 0', async () => {
+    it('should only have moves with a power greater than 0', () => {
       const pokeBuild: PokebuildService = TestBed.inject(PokebuildService);
-      expect((await pokeBuild.getPokemonFromPokedex('squirtle')
-        .pipe(take(1))
-        .toPromise())?.moves.every(move => move.power > 0)).toBeTruthy();
+      pokeBuild.getPokemonFromPokedex('squirtle').subscribe((pokemon) => {
+        expect(pokemon?.moves.every(move => move.power > 0)).toBeTruthy();
+      });
     });
-    it('should every move s power should not be undefined', async () => {
+    it('should every move s power should not be undefined', () => {
       const pokeBuild: PokebuildService = TestBed.inject(PokebuildService);
-      expect((await pokeBuild.getPokemonFromPokedex('magikarp')
-        .pipe(take(1))
-        .toPromise())?.moves.every(move => move.power !== undefined)).toBeTruthy();
+      pokeBuild.getPokemonFromPokedex('magikarp').subscribe((pokemon) => {
+        expect(pokemon?.moves.every(move => move.power !== undefined)).toBeTruthy();
+      });
     });
-    it('should have more than 0 moves', async () => {
+    it('should have more than 0 moves', () => {
       const pokeBuild: PokebuildService = TestBed.inject(PokebuildService);
-      expect((await pokeBuild.getPokemonFromPokedex('magikarp')
-        .pipe(take(1))
-        .toPromise())?.moves.length).toBeGreaterThan(0);
+      pokeBuild.getPokemonFromPokedex('magikarp').subscribe(pokemon => {
+        expect(pokemon?.moves.length).toBeGreaterThan(0);
+      });
     });
-    it('should have a maximum of 4 moves', async () => {
+    it('should have a maximum of 4 moves', () => {
       const pokeBuild: PokebuildService = TestBed.inject(PokebuildService);
-      expect((await pokeBuild.getPokemonFromPokedex('charmander')
-        .pipe(take(1))
-        .toPromise())?.moves.length).toBeLessThanOrEqual(4);
+      pokeBuild.getPokemonFromPokedex('charmander').subscribe((pokemon) => {
+        expect(pokemon?.moves.length).toBeLessThanOrEqual(4);
+      });
     });
   });
   describe('When getting a list of playable pokemons', () => {
@@ -94,20 +93,23 @@ describe('Test pokebuild from API', () => {
         imports: [HttpClientModule]
       });
     });
-    it('should return a maximum of 10 pokemons', async () => {
+    it('should return a maximum of 10 pokemons', () => {
       const pokeBuild: PokebuildService = TestBed.inject(PokebuildService);
-      expect((await pokeBuild.getPokelist(10)
-        .pipe(take(1)).toPromise()).length).toBeLessThanOrEqual(10);
+      pokeBuild.getPokelist(10).subscribe((pokemons) => {
+          expect(pokemons.length).toBeLessThanOrEqual(10);
+        });
     });
-    it('should return a list of non null or undefined pokemons', async () => {
+    it('should return a list of non null or undefined pokemons', () => {
       const pokeBuild: PokebuildService = TestBed.inject(PokebuildService);
-      expect((await pokeBuild.getPokelist(10)
-        .pipe(take(1)).toPromise()).every(pokemon => pokemon)).toBeTruthy();
+      pokeBuild.getPokelist(10).subscribe((pokemons) => {
+        expect(pokemons.every(pokemon => pokemon)).toBeTruthy();
+      });
     });
-    it('should return a list of non null or undefined pokemons', async () => {
+    it('should return a list of non null or undefined pokemons', () => {
       const pokeBuild: PokebuildService = TestBed.inject(PokebuildService);
-      expect((await pokeBuild.getPokelist(10)
-        .pipe(take(1)).toPromise()).every(pokemon => pokemon)).toBeTruthy();
+      pokeBuild.getPokelist(10).subscribe((pokemons) => {
+        expect(pokemons.every(pokemon => pokemon)).toBeTruthy();
+      });
     });
 
     describe('When getting an existing pokemon from pokedex light', () => {
@@ -117,11 +119,13 @@ describe('Test pokebuild from API', () => {
           imports: [HttpClientModule]
         });
       });
-      it('should have a name and an image', async () => {
+      it('should have a name and an image', () => {
         const pokeBuild: PokebuildService = TestBed.inject(PokebuildService);
-        const pokemon = await pokeBuild.getPokemonFromPokedexLight('https://pokeapi.co/api/v2/pokemon/pikachu').pipe(take(1)).toPromise();
-        expect(pokemon.imgUrl).toBeTruthy();
-        expect(pokemon.name).toBeTruthy();
+        pokeBuild.getPokemonFromPokedexLight('https://pokeapi.co/api/v2/pokemon/pikachu')
+          .subscribe((pokemon) => {
+          expect(pokemon.imgUrl).toBeTruthy();
+          expect(pokemon.name).toBeTruthy();
+        });
       });
     });
     describe('When getting a non existant pokemon from pokedex light', () => {
@@ -131,11 +135,16 @@ describe('Test pokebuild from API', () => {
           imports: [HttpClientModule]
         });
       });
-      it('should throw an error', async () => {
+      it('should throw an error', () => {
         const pokeBuild: PokebuildService = TestBed.inject(PokebuildService);
-        await expect(async () => {
-          await pokeBuild.getPokemonFromPokedexLight('https://pokeapi.co/api/v2/pokemon/notExistant').pipe(take(1)).toPromise();
-        }).rejects.toThrow('Pokemon not found');
+        pokeBuild.getPokemonFromPokedexLight('https://pokeapi.co/api/v2/pokemon/notExistant')
+          .subscribe({
+            next: () => {
+            expect(false).toBe(true);
+            }, error: err => {
+              expect(err).toBe(Error);
+            }
+          });
       });
     });
   });
