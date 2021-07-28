@@ -199,12 +199,14 @@ describe('Test attack interval function', () => {
     arena.setPokemons(pikachu, carapuce);
     expect(arena.getPokemon1()).toBe(pikachu);
     expect(arena.getPokemon2()).toBe(carapuce);
-    expect(arena.getLogs()).toBe([]);
+    expect(arena.getLogs().length).toBe(0);
   });
 
-  it('should throw an error cause of bad definition', () => {
+  it('should throw an error cause of bad definition', async () => {
     const arena: FightService = TestBed.inject(FightService);
     arena.setPaused(false);
-    expect(arena.determinefirstAttacker()).toThrowError();
+    await expect(() => arena.determinefirstAttacker()).rejects.toThrow(
+      'Pokemons are undefined'
+    );
   });
 });
