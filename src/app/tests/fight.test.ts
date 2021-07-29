@@ -202,11 +202,11 @@ describe('Test attack interval function', () => {
     expect(arena.getLogs().length).toBe(0);
   });
 
-  it('should throw an error cause of bad definition', async () => {
+  it('should throw an error cause of bad definition', () => {
     const arena: FightService = TestBed.inject(FightService);
     arena.setPaused(false);
-    await expect(() => arena.determinefirstAttacker()).rejects.toThrow(
-      'Pokemons are undefined'
+    expect(() => arena.determinefirstAttacker()).toThrow(
+      new Error('Pokemons are undefined')
     );
   });
 });

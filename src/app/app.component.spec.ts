@@ -4,11 +4,11 @@ import {LikeButtonComponent} from './features/like-button/like-button.component'
 import {LogComponent} from './features/log/log.component';
 import {PokemonComponent} from './features/pokemon/pokemon.component';
 import {PokebuildService} from './utils/pokebuild.service';
-import {HttpClientModule} from '@angular/common/http';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {FightService} from './utils/fight.service';
 import {LogService} from './utils/log.service';
 import {LogDirective} from './features/log/log.directive';
+import {RouterTestingModule} from "@angular/router/testing";
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -19,7 +19,7 @@ describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [AppComponent, LikeButtonComponent, LogComponent, PokemonComponent, LogDirective],
-      imports: [HttpClientTestingModule],
+      imports: [HttpClientTestingModule, RouterTestingModule],
       providers: [PokebuildService, FightService, LogService]
     });
   });
