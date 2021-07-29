@@ -25,7 +25,7 @@ export class ArenaComponent implements OnInit {
     const pokemon1 = this.route.snapshot.params.poke1;
     const pokemon2 = this.route.snapshot.params.poke2;
     this.setPokemons(pokemon1, pokemon2).subscribe(() => {
-      console.log('ready');
+      // console.log('ready');
       this.fightService.fightArena();
     });
     // this.fightService.fightArena();
